@@ -10,7 +10,7 @@ const Logged = () => {
 
   return (
     <div>
-      <div style={{ position: 'relative' }}>
+      <div>
         logado: {String(isAuthenticated)}
       </div>
     </div>
