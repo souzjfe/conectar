@@ -10,9 +10,7 @@ const Logged = () => {
 
   return (
     <div>
-      <div>
-        logado: {String(isAuthenticated)}
-      </div>
+      <div>logado: {String(isAuthenticated)}</div>
     </div>
   );
 };
