@@ -105,7 +105,7 @@ docs](https://docs.docker.com/compose/install/).
 Then, in the directory you want your project to live:
 
 ```bash
-cookiecutter gh:souzjfe/fastapi-react
+cookiecutter gh:souzjfe/conectar
 ```
 
 You will need to put in a few variables and it will create a project directory
