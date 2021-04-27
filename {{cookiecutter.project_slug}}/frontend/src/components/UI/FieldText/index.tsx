@@ -1,16 +1,16 @@
-import React from 'react'
-import { BodyField, Error } from './styles'
+import React from 'react';
+import { BodyField, Error } from './styles';
 
-import { Link } from 'react-router-dom'
-import { IoMdAlert } from 'react-icons/io'
+import { Link } from 'react-router-dom';
+import { IoMdAlert } from 'react-icons/io';
 
 interface FieldProps {
-  name: string
-  label?: string
-  subLabel?: string
-  pathSubLabel?: string
-  error?: string
-  isEmpty: boolean
+  name: string;
+  label?: string;
+  subLabel?: string;
+  pathSubLabel?: string;
+  error?: string;
+  isEmpty: boolean;
 }
 const FieldText: React.FC<FieldProps> = ({
   name,
@@ -36,7 +36,7 @@ const FieldText: React.FC<FieldProps> = ({
         </Error>
       )}
     </BodyField>
-  )
-}
+  );
+};
 
-export default FieldText
+export default FieldText;

@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Form } from '@unform/web'
+import styled from 'styled-components';
+import { Form } from '@unform/web';
 
 export const BodyLogin = styled(Form)`
   display: flex;
@@ -52,4 +52,4 @@ export const BodyLogin = styled(Form)`
       text-decoration: none;
     }
   }
-`
+`;

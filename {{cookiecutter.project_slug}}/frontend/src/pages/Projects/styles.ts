@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components'
-import { Icon } from '../../assets/icon/style'
-import { BodyButton } from '../../components/UI/Button/styles'
-import { DivScroll } from '../../components/UI/ContainerScroll/styles'
-import { DivModalWindow } from '../../components/UI/Modal/styles'
-import { ProfileLink } from '../../components/SuccessfulCreatorsCard/styles'
+import styled, { css } from 'styled-components';
+import { Icon } from '../../assets/icon/style';
+import { BodyButton } from '../../components/UI/Button/styles';
+import { DivScroll } from '../../components/UI/ContainerScroll/styles';
+import { DivModalWindow } from '../../components/UI/Modal/styles';
+import { ProfileLink } from '../../components/SuccessfulCreatorsCard/styles';
 
 export const DivTags = styled.div`
   background: white;
@@ -35,13 +35,13 @@ export const DivTags = styled.div`
       margin-top: 0.8rem;
     }
   }
-`
+`;
 interface IPropsSobre {
-  showSobre: boolean
+  showSobre: boolean;
 }
 export const DivSobre = styled.div<IPropsSobre>`
   display: none;
-  ${props =>
+  ${(props) =>
     props.showSobre &&
     css`
       display: flex;
@@ -103,13 +103,13 @@ export const DivSobre = styled.div<IPropsSobre>`
       }
     }
   }
-`
+`;
 interface IPropsVagas {
-  showVagas: boolean
+  showVagas: boolean;
 }
 export const DivVagas = styled.div<IPropsVagas>`
   display: none;
-  ${props =>
+  ${(props) =>
     props.showVagas &&
     css`
       display: flex;
@@ -200,7 +200,7 @@ export const DivVagas = styled.div<IPropsVagas>`
       }
     }
   }
-`
+`;
 
 export const BodyProjects = styled.div`
   --gap: 1.2rem;
@@ -328,4 +328,4 @@ export const BodyProjects = styled.div`
       }
     }
   }
-`
+`;

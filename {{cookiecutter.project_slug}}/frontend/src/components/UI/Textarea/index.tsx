@@ -5,16 +5,16 @@ import React, {
   useEffect,
   useRef,
   useState,
-} from 'react'
-import { BodyTextarea } from './styles'
-import { Link } from 'react-router-dom'
-import { useField } from '@unform/core'
-import FieldText from '../FieldText'
+} from 'react';
+import { BodyTextarea } from './styles';
+import { Link } from 'react-router-dom';
+import { useField } from '@unform/core';
+import FieldText from '../FieldText';
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  name: string
-  label?: string
-  subLabel?: string
-  pathSubLabel?: string
+  name: string;
+  label?: string;
+  subLabel?: string;
+  pathSubLabel?: string;
 }
 /**
  * This component receives text in your field
@@ -36,28 +36,28 @@ const Textarea: React.FC<TextareaProps> = ({
   pathSubLabel,
   ...rest
 }) => {
-  const textareRef = useRef(null)
-  const { fieldName, defaultValue, registerField, error } = useField(name)
+  const textareRef = useRef(null);
+  const { fieldName, defaultValue, registerField, error } = useField(name);
   useEffect(() => {
     registerField({
       name: fieldName,
       ref: textareRef.current,
       path: 'value',
-    })
-  }, [fieldName, registerField])
+    });
+  }, [fieldName, registerField]);
   const [textareaIsEmpty, setTextareaIsEmpty] = useState(
-    !rest.defaultValue && rest.defaultValue !== '',
-  )
+    !rest.defaultValue && rest.defaultValue !== ''
+  );
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
       if (event.target.value !== '') {
-        setTextareaIsEmpty(false)
+        setTextareaIsEmpty(false);
       } else {
-        setTextareaIsEmpty(true)
+        setTextareaIsEmpty(true);
       }
     },
-    [],
-  )
+    []
+  );
   return (
     <BodyTextarea>
       <FieldText
@@ -77,7 +77,7 @@ const Textarea: React.FC<TextareaProps> = ({
         />
       </FieldText>
     </BodyTextarea>
-  )
-}
+  );
+};
 
-export default Textarea
+export default Textarea;

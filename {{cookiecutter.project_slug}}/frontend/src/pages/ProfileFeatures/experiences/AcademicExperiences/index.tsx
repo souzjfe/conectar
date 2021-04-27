@@ -5,59 +5,59 @@ import React, {
   useEffect,
   OptionHTMLAttributes,
   ChangeEvent,
-} from 'react'
-import Input from '../../../../components/UI/Input'
-import Textarea from '../../../../components/UI/Textarea'
-import Select from '../../../../components/UI/Select'
-import ToggleSwitch from '../../../../components/UI/ToggleSwitch'
-import Modal from '../../../../components/UI/Modal'
-import Button from '../../../../components/UI/Button'
-import { BodyExperiences } from '../styles'
-import { finalYearOptions, yearOptions } from '../../../../utils/dates'
-import { AxiosError } from 'axios'
-import api from '../../../../services/api'
-import * as Yup from 'yup'
-import { FormHandles } from '@unform/core'
-import { Form } from '@unform/web'
-import getValidationErrors from '../../../../utils/getValidationErrors'
-import { IconEdit, IconTrash } from '../../../../assets/icon'
+} from 'react';
+import Input from '../../../../components/UI/Input';
+import Textarea from '../../../../components/UI/Textarea';
+import Select from '../../../../components/UI/Select';
+import ToggleSwitch from '../../../../components/UI/ToggleSwitch';
+import Modal from '../../../../components/UI/Modal';
+import Button from '../../../../components/UI/Button';
+import { BodyExperiences } from '../styles';
+import { finalYearOptions, yearOptions } from '../../../../utils/dates';
+import { AxiosError } from 'axios';
+import api from '../../../../services/api';
+import * as Yup from 'yup';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import getValidationErrors from '../../../../utils/getValidationErrors';
+import { IconEdit, IconTrash } from '../../../../assets/icon';
 /**
  * As this type is used from data that comes from the backend, it comes with
  * data_fim and data_inicio, but we need data_inicio and data_fim as placeholders
  * so we can create a full date from it and modify the state properly
  */
 export interface AcademicType {
-  id: number
-  instituicao: string
-  escolaridade: string
-  curso: string
-  situacao: string
-  descricao: string
-  data_inicio: string
-  data_fim: string
+  id: number;
+  instituicao: string;
+  escolaridade: string;
+  curso: string;
+  situacao: string;
+  descricao: string;
+  data_inicio: string;
+  data_fim: string;
 }
 
 const AcademicExperiences: React.FC = () => {
-  const formRef = useRef<FormHandles>(null)
-  const [showRegister, setShowRegister] = useState<boolean>(false)
-  const [isIncomplete, setIsIncomplete] = useState<boolean>(false)
+  const formRef = useRef<FormHandles>(null);
+  const [showRegister, setShowRegister] = useState<boolean>(false);
+  const [isIncomplete, setIsIncomplete] = useState<boolean>(false);
   const [initialYear, setInitialYear] = useState<number>(
-    new Date().getFullYear() + 1,
-  )
-  const [stored, setStored] = useState<AcademicType[]>([])
+    new Date().getFullYear() + 1
+  );
+  const [stored, setStored] = useState<AcademicType[]>([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const initialAcademicData = {
     id: 0,
-  } as AcademicType
+  } as AcademicType;
   const [editStored, setEditStored] = useState<AcademicType>(
-    initialAcademicData,
-  )
-  const [currentilyEducation, setCurrentilyEducation] = useState('')
-  const [openModal, setOpenModal] = useState<boolean>(false)
+    initialAcademicData
+  );
+  const [currentilyEducation, setCurrentilyEducation] = useState('');
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [experienceExcluded, setExperienceExcluded] = useState({
     id: 0,
     nome: '',
-  })
+  });
   const niveisFormacao: OptionHTMLAttributes<HTMLOptionElement>[] = [
     { label: 'Ensino Fundamental', value: 'Ensino Fundamental' },
     { label: 'Ensino Médio', value: 'Ensino Médio' },
@@ -69,42 +69,42 @@ const AcademicExperiences: React.FC = () => {
     { label: 'Especialização', value: 'Especialização' },
     { label: 'Residência Médica', value: 'Residência Médica' },
     { label: 'Aperfeiçoamento', value: 'Aperfeiçoamento' },
-  ]
+  ];
   useEffect(() => {
     api
       .get('/api/v1/experiencias/academica/me', {
         withCredentials: true,
       })
-      .then(response => {
-        setStored(response.data)
+      .then((response) => {
+        setStored(response.data);
       })
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
-  }, [editStored, showRegister, openModal])
+        return err?.response?.data.detail;
+      });
+  }, [editStored, showRegister, openModal]);
   async function handleDeleteExperience(id: number) {
     if (stored.length === 1) {
-      stored.splice(0, 1)
+      stored.splice(0, 1);
     }
     await api
       .delete(`/api/v1/experiencias/academica/${id}`, {
         withCredentials: true,
       })
       .then(() => {
-        setShowRegister(false)
-        setOpenModal(false)
-        setEditStored(initialAcademicData)
+        setShowRegister(false);
+        setOpenModal(false);
+        setEditStored(initialAcademicData);
       })
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
+        return err?.response?.data.detail;
+      });
   }
   const handleSubmit = useCallback(
     async (formData: AcademicType) => {
-      console.log(formData)
-      formRef.current?.setErrors({})
+      console.log(formData);
+      formRef.current?.setErrors({});
       try {
         const schema = Yup.object().shape({
           escolaridade: Yup.string().required('Informe a escolaridade'),
@@ -118,11 +118,11 @@ const AcademicExperiences: React.FC = () => {
           data_inicio: Yup.string().required('Ano inicial é obrigatório'),
           curso: Yup.string().required('Informe o curso'),
           instituicao: Yup.string().required('Informe a instituição'),
-        })
+        });
 
         await schema.validate(formData, {
           abortEarly: false,
-        })
+        });
         // Validation passed
         const {
           instituicao,
@@ -132,7 +132,7 @@ const AcademicExperiences: React.FC = () => {
           data_fim,
           data_inicio,
           situacao,
-        } = formData
+        } = formData;
 
         const data = {
           instituicao,
@@ -143,8 +143,8 @@ const AcademicExperiences: React.FC = () => {
           escolaridade,
           curso,
           situacao: situacao[0],
-        }
-        console.log(data)
+        };
+        console.log(data);
 
         /**
          * Sends data to backend
@@ -157,41 +157,41 @@ const AcademicExperiences: React.FC = () => {
                 withCredentials: true,
               })
               .then(() => {
-                setShowRegister(false)
-                setEditStored(initialAcademicData)
+                setShowRegister(false);
+                setEditStored(initialAcademicData);
               })
               .catch((err: AxiosError) => {
                 // Returns error message from backend
-                return err?.response?.data.detail
+                return err?.response?.data.detail;
               })
           : await api
               .post('/api/v1/experiencias/academica', data, {
                 withCredentials: true,
               })
               .then(() => {
-                setShowRegister(false)
-                setEditStored(initialAcademicData)
+                setShowRegister(false);
+                setEditStored(initialAcademicData);
               })
               .catch((err: AxiosError) => {
                 // Returns error message from backend
-                return err?.response?.data.detail
-              })
-        console.log(res)
+                return err?.response?.data.detail;
+              });
+        console.log(res);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           // Validation failed
-          const errors = getValidationErrors(error)
+          const errors = getValidationErrors(error);
 
-          formRef.current?.setErrors(errors)
-          return
+          formRef.current?.setErrors(errors);
+          return;
         }
-        alert('Lgoin ou senha incorreto')
+        alert('Lgoin ou senha incorreto');
       }
 
       // Do something
     },
-    [editStored.id, initialAcademicData],
-  )
+    [editStored.id, initialAcademicData]
+  );
   function handleEditExperience(experience: AcademicType) {
     const {
       id,
@@ -202,7 +202,7 @@ const AcademicExperiences: React.FC = () => {
       data_fim,
       data_inicio,
       situacao,
-    }: AcademicType = experience
+    }: AcademicType = experience;
 
     const data = {
       id,
@@ -214,10 +214,10 @@ const AcademicExperiences: React.FC = () => {
         situacao !== 'Incompleto' && data_fim ? data_fim.split('-')[0] : '',
       data_inicio: data_inicio.split('-')[0],
       situacao,
-    }
+    };
 
-    setShowRegister(true)
-    setEditStored(data)
+    setShowRegister(true);
+    setEditStored(data);
   }
 
   return (
@@ -255,16 +255,16 @@ const AcademicExperiences: React.FC = () => {
               <section className="icones">
                 <IconEdit
                   onClick={() => {
-                    handleEditExperience(experience)
+                    handleEditExperience(experience);
                   }}
                 />
                 <IconTrash
                   onClick={() => {
-                    setOpenModal(true)
+                    setOpenModal(true);
                     setExperienceExcluded({
                       ...experience,
                       nome: experience.curso,
-                    })
+                    });
                   }}
                 />
               </section>
@@ -322,7 +322,7 @@ const AcademicExperiences: React.FC = () => {
                   name="data_inicio"
                   options={yearOptions}
                   onChange={(option: any) => {
-                    setInitialYear(Number(option.value))
+                    setInitialYear(Number(option.value));
                   }}
                   defaultValue={
                     editStored.id
@@ -387,13 +387,13 @@ const AcademicExperiences: React.FC = () => {
                 theme="secondary"
                 onClick={() => {
                   if (editStored.id) {
-                    setOpenModal(true)
+                    setOpenModal(true);
                     setExperienceExcluded({
                       nome: editStored.curso,
                       id: editStored?.id,
-                    })
+                    });
                   } else {
-                    setShowRegister(false)
+                    setShowRegister(false);
                   }
                 }}
               >
@@ -401,8 +401,8 @@ const AcademicExperiences: React.FC = () => {
               </Button>
               <Button
                 onClick={() => {
-                  setShowRegister(false)
-                  setEditStored(initialAcademicData)
+                  setShowRegister(false);
+                  setEditStored(initialAcademicData);
                 }}
                 theme="secondary"
               >
@@ -413,7 +413,7 @@ const AcademicExperiences: React.FC = () => {
         </Form>
       )}
     </BodyExperiences>
-  )
-}
+  );
+};
 
-export default AcademicExperiences
+export default AcademicExperiences;

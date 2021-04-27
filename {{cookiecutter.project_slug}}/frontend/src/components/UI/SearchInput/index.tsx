@@ -4,39 +4,39 @@ import React, {
   useState,
   FormEvent,
   InputHTMLAttributes,
-} from 'react'
-import { Component, LiDrop } from './styles'
-import lupa from '../../../assets/icon/lupa.svg'
-import Dropdown from '../Dropdown'
-import { useHistory, useLocation } from 'react-router'
+} from 'react';
+import { Component, LiDrop } from './styles';
+import lupa from '../../../assets/icon/lupa.svg';
+import Dropdown from '../Dropdown';
+import { useHistory, useLocation } from 'react-router';
 
-type TypePeopleOrProject = 'projeto' | 'pessoa'
+type TypePeopleOrProject = 'projeto' | 'pessoa';
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
-  defaultAttribute?: TypePeopleOrProject
+  defaultAttribute?: TypePeopleOrProject;
 }
 const SearchInput: React.FC<IProps> = ({ defaultAttribute, ...rest }) => {
-  const history = useHistory()
-  const location = useLocation()
+  const history = useHistory();
+  const location = useLocation();
   const [searchFor, setSearchFor] = useState<TypePeopleOrProject>(
-    defaultAttribute || 'projeto',
-  )
-  const [searchKey, setSearchKey] = useState<string>('')
+    defaultAttribute || 'projeto'
+  );
+  const [searchKey, setSearchKey] = useState<string>('');
 
-  const options: Array<TypePeopleOrProject> = ['projeto', 'pessoa']
+  const options: Array<TypePeopleOrProject> = ['projeto', 'pessoa'];
 
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setSearchKey(event.target.value)
-  }, [])
+    setSearchKey(event.target.value);
+  }, []);
   const handleSubmit = useCallback(
     (event: FormEvent) => {
-      event.preventDefault()
+      event.preventDefault();
       if (searchFor === 'projeto' || searchFor === 'pessoa') {
-        history.push(`/pesquisar/${searchFor}/nome/${searchKey}`)
+        history.push(`/pesquisar/${searchFor}/nome/${searchKey}`);
       } else if (searchFor === 'área') {
       }
     },
-    [history, searchFor, searchKey],
-  )
+    [history, searchFor, searchKey]
+  );
   return (
     <Component
       onSubmit={handleSubmit}
@@ -48,13 +48,13 @@ const SearchInput: React.FC<IProps> = ({ defaultAttribute, ...rest }) => {
 
       <input placeholder="Buscar" onChange={handleChange} {...rest} />
       <Dropdown IconButton={searchFor}>
-        {options.map(option => (
+        {options.map((option) => (
           <LiDrop
             type="button"
             isSelected={option === searchFor}
             key={option}
             onClick={() => {
-              setSearchFor(option)
+              setSearchFor(option);
             }}
           >
             {option}
@@ -62,7 +62,7 @@ const SearchInput: React.FC<IProps> = ({ defaultAttribute, ...rest }) => {
         ))}
       </Dropdown>
     </Component>
-  )
-}
+  );
+};
 
-export default SearchInput
+export default SearchInput;

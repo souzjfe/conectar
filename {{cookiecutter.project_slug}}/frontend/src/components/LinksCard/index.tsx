@@ -1,10 +1,10 @@
-import React from 'react'
-import { BodyCard } from './styles'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { BodyCard } from './styles';
+import { Link } from 'react-router-dom';
 
-import { FaLinkedinIn } from 'react-icons/fa'
-import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai'
-import aspasDestaque from '../../assets/image/aspasDestaque.svg'
+import { FaLinkedinIn } from 'react-icons/fa';
+import { AiFillFacebook, AiOutlineInstagram } from 'react-icons/ai';
+import aspasDestaque from '../../assets/image/aspasDestaque.svg';
 /**
  * Component fpr showing links of plataform
  *
@@ -37,6 +37,6 @@ const LinksCard: React.FC = () => {
         <span>/boraconectar</span>
       </a>
     </BodyCard>
-  )
-}
-export default LinksCard
+  );
+};
+export default LinksCard;

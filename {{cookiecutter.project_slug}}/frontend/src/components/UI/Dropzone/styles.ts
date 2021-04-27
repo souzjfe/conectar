@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodyDropzone = styled.div`
   position: relative;
@@ -44,4 +44,4 @@ export const BodyDropzone = styled.div`
     left: 0;
     bottom: 0;
   }
-`
+`;

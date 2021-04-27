@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 const moveDownUp = keyframes`
   
   90%{
@@ -9,7 +9,7 @@ const moveDownUp = keyframes`
   }
   
 
-`
+`;
 export const BodyHome = styled.div`
   background: var(--background);
   area {
@@ -681,4 +681,4 @@ export const BodyHome = styled.div`
       }
     }
   }
-`
+`;

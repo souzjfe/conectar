@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components'
-import { boolean } from 'yup'
-import { BodyButton, DropdownContent } from '../Dropdown/styles'
+import styled, { css } from 'styled-components';
+import { boolean } from 'yup';
+import { BodyButton, DropdownContent } from '../Dropdown/styles';
 interface ILiDropProps {
-  isSelected: boolean
+  isSelected: boolean;
 }
 export const LiDrop = styled.button<ILiDropProps>`
   padding: 0.4rem 0.6rem;
@@ -17,7 +17,7 @@ export const LiDrop = styled.button<ILiDropProps>`
     text-transform: uppercase;
   }
 
-  ${props =>
+  ${(props) =>
     props.isSelected
       ? css`
           background: var(--textGreen);
@@ -31,15 +31,15 @@ export const LiDrop = styled.button<ILiDropProps>`
             background: var(--borderDivision);
           }
         `}
-`
+`;
 interface IComponents {
-  isSearchPage?: boolean
+  isSearchPage?: boolean;
 }
 export const Component = styled.form<IComponents>`
   background: white;
   box-shadow: var(--boxShadow);
   height: 2.4rem;
-  width: ${props => (props.isSearchPage ? `100%` : `32rem`)};
+  width: ${(props) => (props.isSearchPage ? `100%` : `32rem`)};
   margin-top: 0.2rem;
   padding: 0 0.2rem;
   border-radius: 0.2rem;
@@ -83,7 +83,7 @@ export const Component = styled.form<IComponents>`
     font: 600 1rem Raleway;
   }
 
-  ${props =>
+  ${(props) =>
     props.isSearchPage &&
     css`
       ${BodyButton} {
@@ -124,7 +124,7 @@ export const Component = styled.form<IComponents>`
         }
       }
     `}
-  ${props =>
+  ${(props) =>
     !props.isSearchPage &&
     css`
       &:focus-within span {
@@ -139,4 +139,4 @@ export const Component = styled.form<IComponents>`
         }
       }
     `}
-`
+`;

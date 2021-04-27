@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import { BodyCard as LinksCard } from '../../components/LinksCard/styles'
-import { BodyCard as ProfileCard } from '../../components/ProfileLink/styles'
-import { BodyCard as SuccessfulCreatorsCard } from '../../components/SuccessfulCreatorsCard/styles'
+import styled from 'styled-components';
+import { BodyCard as LinksCard } from '../../components/LinksCard/styles';
+import { BodyCard as ProfileCard } from '../../components/ProfileLink/styles';
+import { BodyCard as SuccessfulCreatorsCard } from '../../components/SuccessfulCreatorsCard/styles';
 
 export const BodyApproveProject = styled.div`
   width: var(--container);
@@ -64,4 +64,4 @@ export const BodyApproveProject = styled.div`
       padding: 0 1rem;
     }
   }
-`
+`;

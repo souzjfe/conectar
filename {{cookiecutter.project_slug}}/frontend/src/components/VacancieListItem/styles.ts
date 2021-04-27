@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components'
-import Dropdown from '../UI/Dropdown'
+import styled, { css } from 'styled-components';
+import Dropdown from '../UI/Dropdown';
 import {
   BodyButton as DropdownStyle,
   DropdownContent,
-} from '../UI/Dropdown/styles'
+} from '../UI/Dropdown/styles';
 
 export const DropdownList = styled(Dropdown)`
   position: absolute;
@@ -17,7 +17,7 @@ export const DropdownList = styled(Dropdown)`
       background: var(--borderDivision);
     }
   }
-`
+`;
 export const VacancieLi = styled.li`
   box-shadow: var(--boxShadow);
   border-radius: var(--borderRadius);
@@ -61,4 +61,4 @@ export const VacancieLi = styled.li`
       }
     }
   }
-`
+`;

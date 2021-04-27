@@ -1,12 +1,12 @@
-import styled from 'styled-components'
-import { BodyButton } from '../Button/styles'
-import { DropdownContent } from '../Dropdown/styles'
+import styled from 'styled-components';
+import { BodyButton } from '../Button/styles';
+import { DropdownContent } from '../Dropdown/styles';
 export const LiNotification = styled.li`
   list-style: none;
   padding: 0.4rem 1rem;
   border-bottom: solid 1px var(--borderDivision);
   border-top: solid 1px var(--borderDivision);
-`
+`;
 
 export const BodyNavBar = styled.nav`
   width: 100%;
@@ -194,4 +194,4 @@ export const BodyNavBar = styled.nav`
       border: solid 2px var(--green);
     }
   }
-`
+`;

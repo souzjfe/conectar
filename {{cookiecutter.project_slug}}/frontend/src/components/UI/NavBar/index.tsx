@@ -1,46 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { BodyNavBar, LiNotification } from './styles'
-import logo from '../../../assets/image/logo_fundoClaro.svg'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import explorar from '../../../assets/icon/explorar.svg'
-import explorar_secondary from '../../../assets/icon/explorer_secondary.svg'
-import userDefault from '../../../assets/icon/user.svg'
-import { Context } from '../../../context/AuthContext'
-import { IconBell, IconUser } from '../../../assets/icon'
-import Dropdown from '../Dropdown'
-import SearchInput from '../SearchInput'
-import useAuth from '../../../context/hooks/useAuth'
-import api from '../../../services/api'
-import { AxiosError } from 'axios'
-import Button from '../Button'
+import React, { useContext, useEffect, useState } from 'react';
+import { BodyNavBar, LiNotification } from './styles';
+import logo from '../../../assets/image/logo_fundoClaro.svg';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import explorar from '../../../assets/icon/explorar.svg';
+import explorar_secondary from '../../../assets/icon/explorer_secondary.svg';
+import userDefault from '../../../assets/icon/user.svg';
+import { Context } from '../../../context/AuthContext';
+import { IconBell, IconUser } from '../../../assets/icon';
+import Dropdown from '../Dropdown';
+import SearchInput from '../SearchInput';
+import useAuth from '../../../context/hooks/useAuth';
+import api from '../../../services/api';
+import { AxiosError } from 'axios';
+import Button from '../Button';
 interface INotification {
-  remetente_id: number
-  destinatario_id: number
-  projeto_id: number
-  pessoa_projeto_id: number
-  situacao: string
-  lido: boolean
-  id: number
-  data_criacao: string
-  data_atualizacao: string
+  remetente_id: number;
+  destinatario_id: number;
+  projeto_id: number;
+  pessoa_projeto_id: number;
+  situacao: string;
+  lido: boolean;
+  id: number;
+  data_criacao: string;
+  data_atualizacao: string;
 }
 const NavBar: React.FC = () => {
-  const { loading, isAuthenticated, handleLogout } = useContext(Context)
-  const { user } = useContext(Context)
-  const location = useLocation()
-  const [notifications, setNotifications] = useState<Array<INotification>>([])
+  const { loading, isAuthenticated, handleLogout } = useContext(Context);
+  const { user } = useContext(Context);
+  const location = useLocation();
+  const [notifications, setNotifications] = useState<Array<INotification>>([]);
   useEffect(() => {
     const res = api
       .get(`api/v1/notificacao/destinatario?destinatario_id=${user.id}`)
-      .then(response => {
-        setNotifications(response.data)
+      .then((response) => {
+        setNotifications(response.data);
       })
       .catch((err: AxiosError) => {
-        return err?.response?.data.detail
-      })
+        return err?.response?.data.detail;
+      });
 
-    console.log(res)
-  }, [])
+    console.log(res);
+  }, []);
 
   return (
     <BodyNavBar>
@@ -66,7 +66,7 @@ const NavBar: React.FC = () => {
           <>
             <Dropdown IconButton={<IconBell />}>
               <h4>Notificações</h4>
-              {notifications?.map(notification => (
+              {notifications?.map((notification) => (
                 <LiNotification key={notification.id}>
                   <img src={``} alt={``} />
                   <p>{notification.situacao}</p>
@@ -110,7 +110,7 @@ const NavBar: React.FC = () => {
         )}
       </aside>
     </BodyNavBar>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;

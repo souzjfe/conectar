@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components'
-import { BodyField } from '../../components/UI/FieldText/styles'
-import background from '../../assets/image/background.svg'
-import { BodySwitch } from '../../components/UI/ProfileTypeToggleSwitch/styles'
+import styled, { css } from 'styled-components';
+import { BodyField } from '../../components/UI/FieldText/styles';
+import background from '../../assets/image/background.svg';
+import { BodySwitch } from '../../components/UI/ProfileTypeToggleSwitch/styles';
 export const ButtonList = styled.button<{ isSelected: boolean }>`
   width: 100%;
   display: flex;
@@ -15,7 +15,7 @@ export const ButtonList = styled.button<{ isSelected: boolean }>`
   background: transparent;
   position: relative;
   color: var(--textGreen);
-  ${props =>
+  ${(props) =>
     props.isSelected &&
     css`
       :after {
@@ -29,7 +29,7 @@ export const ButtonList = styled.button<{ isSelected: boolean }>`
         top: 0.5rem;
       }
     `}
-`
+`;
 
 export const Page = styled.div`
   width: 100%;
@@ -122,4 +122,4 @@ export const Page = styled.div`
       }
     }
   }
-`
+`;

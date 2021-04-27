@@ -1,17 +1,17 @@
-import React, { useContext } from 'react'
-import { BodyCard } from './styles'
-import { Link, useHistory } from 'react-router-dom'
-import id from '../../assets/icon/id.svg'
-import al from '../../assets/icon/al.svg'
-import co from '../../assets/icon/co.svg'
-import Skeleton from 'react-loading-skeleton'
-import { Context } from '../../context/AuthContext'
-import Button from '../UI/Button'
-import { FaLink } from 'react-icons/fa'
+import React, { useContext } from 'react';
+import { BodyCard } from './styles';
+import { Link, useHistory } from 'react-router-dom';
+import id from '../../assets/icon/id.svg';
+import al from '../../assets/icon/al.svg';
+import co from '../../assets/icon/co.svg';
+import Skeleton from 'react-loading-skeleton';
+import { Context } from '../../context/AuthContext';
+import Button from '../UI/Button';
+import { FaLink } from 'react-icons/fa';
 
 const ProfileLink: React.FC = () => {
-  const { user, isAuthenticated } = useContext(Context)
-  const history = useHistory()
+  const { user, isAuthenticated } = useContext(Context);
+  const history = useHistory();
   return isAuthenticated ? (
     <BodyCard>
       {/* <img
@@ -41,6 +41,6 @@ const ProfileLink: React.FC = () => {
         Já tem uma conta? <Link to="/">Entrar</Link>
       </strong>
     </BodyCard>
-  )
-}
-export default ProfileLink
+  );
+};
+export default ProfileLink;

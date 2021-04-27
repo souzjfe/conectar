@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodyCard = styled.div`
   border-radius: var(--borderRadius);
@@ -53,4 +53,4 @@ export const BodyCard = styled.div`
       font-weight: 500;
     }
   }
-`
+`;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const DivScroll = styled.div`
   .thumb-horizontal,
@@ -14,4 +14,4 @@ export const DivScroll = styled.div`
   > div {
     height: 100%;
   }
-`
+`;

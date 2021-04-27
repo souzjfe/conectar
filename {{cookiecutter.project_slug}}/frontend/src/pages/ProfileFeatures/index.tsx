@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { BodyProfileFeatures } from './styles'
-import Button from '../../components/UI/Button'
-import { useHistory } from 'react-router-dom'
-import AcademicExperiences from './experiences/AcademicExperiences'
-import ProfessionalExperiences from './experiences/ProfessionalExperiences'
-import ProjectExperiences from './experiences/ProjectExperiences'
+import React, { useState } from 'react';
+import { BodyProfileFeatures } from './styles';
+import Button from '../../components/UI/Button';
+import { useHistory } from 'react-router-dom';
+import AcademicExperiences from './experiences/AcademicExperiences';
+import ProfessionalExperiences from './experiences/ProfessionalExperiences';
+import ProjectExperiences from './experiences/ProjectExperiences';
 
-import Logged from '../../components/Logged'
+import Logged from '../../components/Logged';
 
 const ProfileFeatures: React.FC = () => {
-  const history = useHistory()
+  const history = useHistory();
 
   return (
     <BodyProfileFeatures>
@@ -34,6 +34,6 @@ const ProfileFeatures: React.FC = () => {
         </footer>
       </div>
     </BodyProfileFeatures>
-  )
-}
-export default ProfileFeatures
+  );
+};
+export default ProfileFeatures;

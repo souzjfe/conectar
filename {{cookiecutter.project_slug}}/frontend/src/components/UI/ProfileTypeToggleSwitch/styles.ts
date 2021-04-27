@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import Tooltip from '../Tooltip'
-import { BodySwitch as ToggleSwitch } from '../ToggleSwitch/styles'
+import styled from 'styled-components';
+import Tooltip from '../Tooltip';
+import { BodySwitch as ToggleSwitch } from '../ToggleSwitch/styles';
 export const Error = styled(Tooltip)`
   svg {
     margin: 0;
@@ -14,7 +14,7 @@ export const Error = styled(Tooltip)`
       border-color: var(--red) transparent;
     }
   }
-`
+`;
 export const BodySwitch = styled.div`
   display: flex;
   justify-content: space-between;
@@ -78,4 +78,4 @@ export const BodySwitch = styled.div`
       }
     }
   }
-`
+`;

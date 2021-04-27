@@ -4,63 +4,63 @@ import React, {
   useCallback,
   useEffect,
   OptionHTMLAttributes,
-} from 'react'
-import Input from '../UI/Input'
-import Textarea from '../UI/Textarea'
-import Select from '../UI/Select'
-import ToggleSwitch from '../UI/ToggleSwitch'
-import Button from '../UI/Button'
-import { BodyVacancy } from './styles'
-import { finalYearOptions, yearOptions } from '../../utils/dates'
-import { AxiosError } from 'axios'
-import api from '../../services/api'
-import { AreaType } from '../UI/SelectArea'
-import { ToolType } from '../UI/SelectTools'
-import * as Yup from 'yup'
-import { FormHandles } from '@unform/core'
-import { Form } from '@unform/web'
-import getValidationErrors from '../../utils/getValidationErrors'
-import VacancieListItem from '../VacancieListItem'
-import { ProjectType } from '../../pages/CreateProject'
+} from 'react';
+import Input from '../UI/Input';
+import Textarea from '../UI/Textarea';
+import Select from '../UI/Select';
+import ToggleSwitch from '../UI/ToggleSwitch';
+import Button from '../UI/Button';
+import { BodyVacancy } from './styles';
+import { finalYearOptions, yearOptions } from '../../utils/dates';
+import { AxiosError } from 'axios';
+import api from '../../services/api';
+import { AreaType } from '../UI/SelectArea';
+import { ToolType } from '../UI/SelectTools';
+import * as Yup from 'yup';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import getValidationErrors from '../../utils/getValidationErrors';
+import VacancieListItem from '../VacancieListItem';
+import { ProjectType } from '../../pages/CreateProject';
 export type TypeSituationVacancy =
   | 'PENDENTE_IDEALIZADOR'
   | 'PENDENTE_COLABORADOR'
   | 'ACEITE_COLABORADOR'
   | 'NEGADO_COLABORADOR'
-  | 'FINALIZADO'
+  | 'FINALIZADO';
 export interface VacanciesType {
-  projeto_id: number
-  remunerado: boolean
-  titulo: string
-  pessoa_id: number
-  papel_id: number
-  tipo_acordo_id: number
-  descricao: string
-  situacao?: TypeSituationVacancy
-  habilidades: Array<ToolType>
-  areas: Array<AreaType>
-  id: number
+  projeto_id: number;
+  remunerado: boolean;
+  titulo: string;
+  pessoa_id: number;
+  papel_id: number;
+  tipo_acordo_id: number;
+  descricao: string;
+  situacao?: TypeSituationVacancy;
+  habilidades: Array<ToolType>;
+  areas: Array<AreaType>;
+  id: number;
 }
 
 interface IFormData {
-  cargo: string
-  perfil: string
-  quantidade: number
-  descricao: string
-  tipoContrato: string
-  areas: Array<string>
-  habilidades: Array<string>
-  remunerado: string
+  cargo: string;
+  perfil: string;
+  quantidade: number;
+  descricao: string;
+  tipoContrato: string;
+  areas: Array<string>;
+  habilidades: Array<string>;
+  remunerado: string;
 }
 interface VacancyProps {
-  project: ProjectType
+  project: ProjectType;
 }
 
 const Vacancy: React.FC<VacancyProps> = ({ project }) => {
-  const [showRegister, setShowRegister] = useState<boolean>(false)
-  const [vacancies, setVacancies] = useState<Array<VacanciesType>>([])
-  const [editingId, setEditingId] = useState<number>(0)
-  const formRef = useRef<FormHandles>(null)
+  const [showRegister, setShowRegister] = useState<boolean>(false);
+  const [vacancies, setVacancies] = useState<Array<VacanciesType>>([]);
+  const [editingId, setEditingId] = useState<number>(0);
+  const formRef = useRef<FormHandles>(null);
   const optionsContrato: Array<OptionHTMLAttributes<HTMLOptionElement>> = [
     { value: '1', label: 'Trainee' },
     { value: '2', label: 'Terceirizado' },
@@ -72,12 +72,12 @@ const Vacancy: React.FC<VacancyProps> = ({ project }) => {
     { value: '8', label: 'Autônomo' },
     { value: '9', label: 'Meio Período' },
     { value: '10', label: ' Tempo Integral' },
-  ]
+  ];
   const optionsPerfil: Array<OptionHTMLAttributes<HTMLOptionElement>> = [
     { value: '1', label: 'Aliado' },
     { value: '2', label: 'Colaborador' },
     { value: '3', label: 'Idealizador' },
-  ]
+  ];
 
   useEffect(() => {
     api
@@ -86,15 +86,15 @@ const Vacancy: React.FC<VacancyProps> = ({ project }) => {
       })
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
-  }, [editingId, showRegister])
+        return err?.response?.data.detail;
+      });
+  }, [editingId, showRegister]);
   const handleSubmit = useCallback(
     async (formData: IFormData) => {
-      console.log(formData)
+      console.log(formData);
       try {
         // Remove all previogeus errors
-        formRef.current?.setErrors({})
+        formRef.current?.setErrors({});
         const schema = Yup.object().shape({
           cargo: Yup.string().required('Cargo é obrigatório'),
           perfil: Yup.string().required('Perfil é obrigatório'),
@@ -108,10 +108,10 @@ const Vacancy: React.FC<VacancyProps> = ({ project }) => {
           //   1,
           //   'Habilidades de contrato é obrigatório',
           // ),
-        })
+        });
         await schema.validate(formData, {
           abortEarly: false,
-        })
+        });
         // Validation passed
 
         const data = {
@@ -122,53 +122,53 @@ const Vacancy: React.FC<VacancyProps> = ({ project }) => {
           tipo_acordo_id: formData.tipoContrato,
           remunerado: !!(formData.remunerado[0] === 'remunerado'),
           situacao: 'CRIADO',
-        }
-        console.log(data)
+        };
+        console.log(data);
 
         await api
           .post('/api/v1/pessoa_projeto', data, {
             withCredentials: true,
           })
-          .then(async response => {
+          .then(async (response) => {
             const res = await api
               .put(
                 `/api/v1/pessoa_projeto/${response.data.id}`,
                 {
-                  areas: formData.areas.map(area => {
-                    return { descricao: area }
+                  areas: formData.areas.map((area) => {
+                    return { descricao: area };
                   }),
-                  habilidades: formData.habilidades.map(habilidade => {
-                    return { nome: habilidade }
+                  habilidades: formData.habilidades.map((habilidade) => {
+                    return { nome: habilidade };
                   }),
                 },
                 {
                   withCredentials: true,
-                },
+                }
               )
               .catch((err: AxiosError) => {
-                return err?.response?.data.detail
-              })
-            console.log(res)
+                return err?.response?.data.detail;
+              });
+            console.log(res);
           })
           .catch((err: AxiosError) => {
-            return err?.response?.data.detail
-          })
-        setShowRegister(false)
+            return err?.response?.data.detail;
+          });
+        setShowRegister(false);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           // Validation failed
-          const errors = getValidationErrors(err)
-          formRef.current?.setErrors(errors)
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
         }
       }
     },
-    [project.id],
-  )
+    [project.id]
+  );
   useEffect(() => {
-    api.get(`/api/v1/pessoa_projeto/projeto/${project.id}`).then(response => {
-      setVacancies(response.data)
-    })
-  }, [project.id, showRegister])
+    api.get(`/api/v1/pessoa_projeto/projeto/${project.id}`).then((response) => {
+      setVacancies(response.data);
+    });
+  }, [project.id, showRegister]);
   return (
     <BodyVacancy className={showRegister ? 'registro' : ''}>
       <h1>
@@ -182,7 +182,7 @@ const Vacancy: React.FC<VacancyProps> = ({ project }) => {
       </h1>
       {!showRegister ? (
         <ul>
-          {vacancies.map(vacancy => (
+          {vacancies.map((vacancy) => (
             <VacancieListItem key={vacancy.id} vacancy={vacancy} />
           ))}
         </ul>
@@ -204,8 +204,8 @@ const Vacancy: React.FC<VacancyProps> = ({ project }) => {
           <Select
             label="Habilidade ou Ferramentas"
             name="habilidades"
-            options={project.habilidades.map(tool => {
-              return { value: tool.nome, label: tool.nome }
+            options={project.habilidades.map((tool) => {
+              return { value: tool.nome, label: tool.nome };
             })}
             multi
           />
@@ -213,8 +213,8 @@ const Vacancy: React.FC<VacancyProps> = ({ project }) => {
             <Select
               label="Áreas"
               name="areas"
-              options={project.areas.map(area => {
-                return { value: area.descricao, label: area.descricao }
+              options={project.areas.map((area) => {
+                return { value: area.descricao, label: area.descricao };
               })}
               multi
             />
@@ -241,8 +241,8 @@ const Vacancy: React.FC<VacancyProps> = ({ project }) => {
             <Button theme="secondary">Excluir</Button>
             <Button
               onClick={() => {
-                setShowRegister(false)
-                setEditingId(0)
+                setShowRegister(false);
+                setEditingId(0);
               }}
               theme="secondary"
             >
@@ -252,7 +252,7 @@ const Vacancy: React.FC<VacancyProps> = ({ project }) => {
         </Form>
       )}
     </BodyVacancy>
-  )
-}
+  );
+};
 
-export default Vacancy
+export default Vacancy;

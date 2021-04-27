@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const UserInfo = styled.main`
   display: flex;
 
@@ -16,7 +16,7 @@ export const UserInfo = styled.main`
       font-size: 0.8rem;
     }
   }
-`
+`;
 export const ProjectInfo = styled.main`
   display: flex;
   flex-direction: column;
@@ -74,7 +74,7 @@ export const ProjectInfo = styled.main`
     font-size: 0.8rem;
     line-height: 1.2rem;
   }
-`
+`;
 export const BodyCard = styled.li`
   list-style: none;
   --gap: 1rem;
@@ -129,4 +129,4 @@ export const BodyCard = styled.li`
     width: 100%;
     display: flex;
   }
-`
+`;

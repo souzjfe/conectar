@@ -1,63 +1,63 @@
-import React, { useState, useCallback, useRef, ChangeEvent } from 'react'
-import { BodySignUp } from './styles'
-import logo from '../../assets/image/logo_fundoClaro.svg'
-import cadastro_banner from '../../assets/image/cadastro_banner.svg'
-import Input from '../../components/UI/Input'
-import Select from '../../components/UI/Select'
-import ToggleSwitch from '../../components/UI/ToggleSwitch'
-import InputMask from '../../components/UI/InputMask'
-import { Link } from 'react-router-dom'
-import Button from '../../components/UI/Button'
-import { ReactFacebookLoginInfo } from 'react-facebook-login'
-import FacebookLogin from 'react-facebook-login'
-import GoogleLogin, { GoogleLoginResponse } from 'react-google-login'
-import { FcGoogle } from 'react-icons/fc'
-import { FaFacebookF } from 'react-icons/fa'
-import { useHistory, useParams } from 'react-router'
-import { daysOptions, monthOptions, yearOptions } from '../../utils/dates'
-import { AxiosError } from 'axios'
-import api from '../../services/api'
-import * as Yup from 'yup'
-import { FormHandles } from '@unform/core'
-import { Form } from '@unform/web'
-import getValidationErrors from '../../utils/getValidationErrors'
-import { IoMdAlert } from 'react-icons/io'
-import { useContext } from 'react'
+import React, { useState, useCallback, useRef, ChangeEvent } from 'react';
+import { BodySignUp } from './styles';
+import logo from '../../assets/image/logo_fundoClaro.svg';
+import cadastro_banner from '../../assets/image/cadastro_banner.svg';
+import Input from '../../components/UI/Input';
+import Select from '../../components/UI/Select';
+import ToggleSwitch from '../../components/UI/ToggleSwitch';
+import InputMask from '../../components/UI/InputMask';
+import { Link } from 'react-router-dom';
+import Button from '../../components/UI/Button';
+import { ReactFacebookLoginInfo } from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
+import { FcGoogle } from 'react-icons/fc';
+import { FaFacebookF } from 'react-icons/fa';
+import { useHistory, useParams } from 'react-router';
+import { daysOptions, monthOptions, yearOptions } from '../../utils/dates';
+import { AxiosError } from 'axios';
+import api from '../../services/api';
+import * as Yup from 'yup';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import getValidationErrors from '../../utils/getValidationErrors';
+import { IoMdAlert } from 'react-icons/io';
+import { useContext } from 'react';
 
-import { Context } from '../../context/AuthContext'
-import ProfileTypeToogleSwitch from '../../components/UI/ProfileTypeToggleSwitch'
+import { Context } from '../../context/AuthContext';
+import ProfileTypeToogleSwitch from '../../components/UI/ProfileTypeToggleSwitch';
 
 interface routeParms {
-  parte: string
+  parte: string;
 }
 interface PessoaType {
-  email: string
-  telefone: string
-  nome: string
-  username: string
-  password: string
-  year: string
-  month: string
-  day: string
-  idealizador: string
-  colaborador: string
-  aliado: string
-  profileType: string[]
+  email: string;
+  telefone: string;
+  nome: string;
+  username: string;
+  password: string;
+  year: string;
+  month: string;
+  day: string;
+  idealizador: string;
+  colaborador: string;
+  aliado: string;
+  profileType: string[];
 }
 const SignUp: React.FC = () => {
-  const history = useHistory()
-  const { handleLogin } = useContext(Context)
-  const params = useParams<routeParms>()
-  const formRef = useRef<FormHandles>(null)
+  const history = useHistory();
+  const { handleLogin } = useContext(Context);
+  const params = useParams<routeParms>();
+  const formRef = useRef<FormHandles>(null);
   const [showNextStep, setShowNextStep] = useState<boolean>(
-    params.parte === '2',
-  )
+    params.parte === '2'
+  );
 
   const handleSubmit = useCallback(
     async (formData: PessoaType) => {
       try {
         // Remove all previous errors
-        formRef.current?.setErrors({})
+        formRef.current?.setErrors({});
         const schema = Yup.object().shape({
           email: Yup.string()
             .email('Não corresponde ao formato exemple@ex.com')
@@ -77,39 +77,39 @@ const SignUp: React.FC = () => {
             .max(80)
             .matches(/(?=.*[ ])/g, 'Informe o nome completo')
             .required('Nome é obrigatório'),
-        })
+        });
 
         await schema.validate(formData, {
           abortEarly: false,
-        })
+        });
         // Validation passed
-        const data = new FormData()
+        const data = new FormData();
 
-        data.append('email', formData.email)
-        data.append('nome', formData.nome)
-        data.append('username', formData.username)
-        data.append('password', formData.password)
-        await api.post('/api/signup', data)
-        setShowNextStep(true)
-        handleLogin(true)
+        data.append('email', formData.email);
+        data.append('nome', formData.nome);
+        data.append('username', formData.username);
+        data.append('password', formData.password);
+        await api.post('/api/signup', data);
+        setShowNextStep(true);
+        handleLogin(true);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           // Validation failed
-          const errors = getValidationErrors(err)
-          formRef.current?.setErrors(errors)
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
           // alert(errors);
         }
       }
     },
-    [handleLogin],
-  )
+    [handleLogin]
+  );
   const handleSecondSubmit = useCallback(
     async (formData: PessoaType) => {
-      console.log(formData)
+      console.log(formData);
 
       try {
         // Remove all previogeus errors
-        formRef.current?.setErrors({})
+        formRef.current?.setErrors({});
         const schema = Yup.object().shape({
           telefone: Yup.string().required('Telefone é obrigatório!'),
           year: Yup.string().required('Ano é obrigatório!'),
@@ -117,21 +117,21 @@ const SignUp: React.FC = () => {
           day: Yup.string().required('Dia é obrigatório!'),
           profileType: Yup.array().min(
             1,
-            'Deve ser selecionado ao menos um tipo de perfil abaixo!',
+            'Deve ser selecionado ao menos um tipo de perfil abaixo!'
           ),
-        })
+        });
 
         await schema.validate(formData, {
           abortEarly: false,
-        })
+        });
         // Validation passed
-        const { year, month, day, telefone } = formData
+        const { year, month, day, telefone } = formData;
 
-        const data_nascimento = `${year}-${month}-${day}`
+        const data_nascimento = `${year}-${month}-${day}`;
 
-        const aliado = formData.profileType.includes('aliado')
-        const colaborador = formData.profileType.includes('colaborador')
-        const idealizador = formData.profileType.includes('idealizador')
+        const aliado = formData.profileType.includes('aliado');
+        const colaborador = formData.profileType.includes('colaborador');
+        const idealizador = formData.profileType.includes('idealizador');
 
         const data = {
           data_nascimento,
@@ -139,39 +139,39 @@ const SignUp: React.FC = () => {
           colaborador,
           idealizador,
           telefone,
-        }
-        console.log(data)
+        };
+        console.log(data);
 
         await api.put('/api/v1/pessoas', data, {
           withCredentials: true,
-        })
-        history.push('/experiencias-do-usuario')
+        });
+        history.push('/experiencias-do-usuario');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           // Validation failed
-          console.log(err)
+          console.log(err);
 
-          const errors = getValidationErrors(err)
-          formRef.current?.setErrors(errors)
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
         }
       }
     },
-    [history],
-  )
+    [history]
+  );
 
   /** This function checks if the profile is idealizer, collaborator or ally then advances to the next form and set name and email in formData */
   async function checkProfileType() {
     const { aliado, colaborador, idealizador } = (
       await api.get('/api/v1/pessoas/me')
-    ).data
+    ).data;
     if (!aliado || !colaborador || !idealizador) {
-      setShowNextStep(true)
+      setShowNextStep(true);
     }
     // setFormData({ ...formData, nome, email });
   }
   const responseFacebook = async (resposta: ReactFacebookLoginInfo) => {
-    const { email, name } = resposta
-    const foto_perfil = resposta.picture?.data.url
+    const { email, name } = resposta;
+    const foto_perfil = resposta.picture?.data.url;
     const res = await api
       .post(`/api/login?provider=facebook`, {
         email,
@@ -181,22 +181,22 @@ const SignUp: React.FC = () => {
       .then(checkProfileType)
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
+        return err?.response?.data.detail;
+      });
 
-    console.log(res)
-  }
+    console.log(res);
+  };
   const responseGoogle = async (response: GoogleLoginResponse | any) => {
-    const { tokenId } = response
+    const { tokenId } = response;
     const res = await api
       .post(`/api/login?provider=google&token=${tokenId}`)
       .then(checkProfileType)
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
-    console.log(res)
-  }
+        return err?.response?.data.detail;
+      });
+    console.log(res);
+  };
 
   return (
     <BodySignUp>
@@ -244,7 +244,7 @@ const SignUp: React.FC = () => {
                 />
                 <GoogleLogin
                   clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-                  render={renderProps => (
+                  render={(renderProps) => (
                     <button
                       className="google-button"
                       onClick={renderProps.onClick}
@@ -340,6 +340,6 @@ const SignUp: React.FC = () => {
         </Form>
       )}
     </BodySignUp>
-  )
-}
-export default SignUp
+  );
+};
+export default SignUp;

@@ -4,22 +4,22 @@ import React, {
   ChangeEvent,
   useRef,
   useCallback,
-} from 'react'
-import { BodySelectTool } from './styles'
-import { GoCheck, GoPlus } from 'react-icons/go'
-import { AxiosError } from 'axios'
-import api from '../../../services/api'
-import { useField } from '@unform/core'
-import { IconTrash } from '../../../assets/icon'
+} from 'react';
+import { BodySelectTool } from './styles';
+import { GoCheck, GoPlus } from 'react-icons/go';
+import { AxiosError } from 'axios';
+import api from '../../../services/api';
+import { useField } from '@unform/core';
+import { IconTrash } from '../../../assets/icon';
 interface SelectToolProps {
-  name: string
-  defaultValue?: string[]
-  label?: string
+  name: string;
+  defaultValue?: string[];
+  label?: string;
 }
 
 export interface ToolType {
-  nome: string
-  id?: number
+  nome: string;
+  id?: number;
 }
 /**
  * This component shows all tools and habilities making possible the user to select their experiences
@@ -38,86 +38,86 @@ const SelectTool: React.FC<SelectToolProps> = ({
   name,
   defaultValue,
 }) => {
-  const [newTool, setNewTool] = useState<ToolType>()
-  const [tools, setTools] = useState<ToolType[]>([])
+  const [newTool, setNewTool] = useState<ToolType>();
+  const [tools, setTools] = useState<ToolType[]>([]);
   const [selectedTools, setSelectedTools] = useState<string[]>(
-    defaultValue || [],
-  )
-  const inputRefs = useRef<HTMLInputElement[]>([])
-  const { fieldName, registerField, error } = useField(name)
+    defaultValue || []
+  );
+  const inputRefs = useRef<HTMLInputElement[]>([]);
+  const { fieldName, registerField, error } = useField(name);
   useEffect(() => {
     registerField({
       name: fieldName,
       ref: inputRefs.current,
       getValue: (refs: HTMLInputElement[]) => {
-        return refs.filter(ref => ref.checked).map(ref => ref.value)
+        return refs.filter((ref) => ref.checked).map((ref) => ref.value);
       },
       clearValue: (refs: HTMLInputElement[]) => {
-        refs.forEach(ref => {
-          ref.checked = false
-        })
+        refs.forEach((ref) => {
+          ref.checked = false;
+        });
       },
       setValue: (refs: HTMLInputElement[], values: string[]) => {
-        refs.forEach(ref => {
+        refs.forEach((ref) => {
           if (values.includes(ref.id)) {
-            ref.checked = true
+            ref.checked = true;
           }
-        })
+        });
       },
-    })
-  }, [defaultValue, fieldName, registerField])
+    });
+  }, [defaultValue, fieldName, registerField]);
   const handleInputCheckChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      const { value } = event.target
+      const { value } = event.target;
       if (selectedTools?.includes(value)) {
-        setSelectedTools(selectedTools.filter(atual => atual !== value))
+        setSelectedTools(selectedTools.filter((atual) => atual !== value));
       } else {
-        setSelectedTools([...selectedTools, value])
+        setSelectedTools([...selectedTools, value]);
       }
     },
-    [selectedTools],
-  )
+    [selectedTools]
+  );
   const handleAddNewTool = useCallback(
     async (tool: ToolType) => {
-      console.log(newTool)
+      console.log(newTool);
       if (!tools.includes(tool)) {
         const res = await api
           .post('/api/v1/habilidade/pessoa', tool, {
             withCredentials: true,
           })
           .then(() => {
-            setNewTool({ nome: '' })
+            setNewTool({ nome: '' });
           })
           .catch((err: AxiosError) => {
-            return err?.response?.data.detail
-          })
-        console.log(res)
+            return err?.response?.data.detail;
+          });
+        console.log(res);
       }
     },
-    [newTool, tools],
-  )
+    [newTool, tools]
+  );
   useEffect(() => {
     api
       .get('/api/v1/habilidades', {
         withCredentials: true,
       })
-      .then(response => {
-        setTools(response.data)
+      .then((response) => {
+        setTools(response.data);
       })
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
-  }, [handleAddNewTool])
+        return err?.response?.data.detail;
+      });
+  }, [handleAddNewTool]);
   const handleInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target
+      const { name, value } = event.target;
       if (name === 'newTool') {
-        setNewTool({ nome: value })
+        setNewTool({ nome: value });
       }
     },
-    [],
-  )
+    []
+  );
   return (
     <BodySelectTool>
       <label>{label}</label>
@@ -125,7 +125,7 @@ const SelectTool: React.FC<SelectToolProps> = ({
         <div className="area-selecionadas">
           <legend>Habilidades e Ferramentas selecionadas</legend>
           <ul>
-            {selectedTools?.map(nome => (
+            {selectedTools?.map((nome) => (
               <li key={nome}>
                 <legend>{nome}</legend>
                 <label htmlFor={nome}>
@@ -139,13 +139,13 @@ const SelectTool: React.FC<SelectToolProps> = ({
           <legend>Habilidades e Ferramentas</legend>
           <ul>
             {tools
-              ?.filter(tool => {
+              ?.filter((tool) => {
                 if (tool.nome && newTool?.nome) {
-                  const name = newTool.nome.toLowerCase()
-                  const tool_name = tool.nome.toLowerCase()
-                  return tool_name.includes(name) ? tool : null
+                  const name = newTool.nome.toLowerCase();
+                  const tool_name = tool.nome.toLowerCase();
+                  return tool_name.includes(name) ? tool : null;
                 }
-                return tool
+                return tool;
               })
               .map((tool, index) => (
                 <li key={tool.nome}>
@@ -165,8 +165,8 @@ const SelectTool: React.FC<SelectToolProps> = ({
                     defaultChecked={
                       defaultValue ? selectedTools.includes(tool.nome) : false
                     }
-                    ref={ref => {
-                      inputRefs.current[index] = ref as HTMLInputElement
+                    ref={(ref) => {
+                      inputRefs.current[index] = ref as HTMLInputElement;
                     }}
                     onChange={handleInputCheckChange}
                   />
@@ -191,6 +191,6 @@ const SelectTool: React.FC<SelectToolProps> = ({
       </div>
       <span>{error}</span>
     </BodySelectTool>
-  )
-}
-export default SelectTool
+  );
+};
+export default SelectTool;

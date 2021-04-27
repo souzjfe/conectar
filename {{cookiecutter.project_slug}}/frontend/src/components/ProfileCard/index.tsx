@@ -3,38 +3,38 @@ import React, {
   useContext,
   useEffect,
   useState,
-} from 'react'
-import { BodyCard } from './styles'
-import { Link } from 'react-router-dom'
-import id from '../../assets/icon/id.svg'
-import al from '../../assets/icon/al.svg'
-import co from '../../assets/icon/co.svg'
-import { AxiosError } from 'axios'
-import { AreaType } from '../UI/SelectArea'
-import { ToolType } from '../UI/SelectTools'
-import api from '../../services/api'
-import Skeleton from 'react-loading-skeleton'
-import Button from '../UI/Button'
+} from 'react';
+import { BodyCard } from './styles';
+import { Link } from 'react-router-dom';
+import id from '../../assets/icon/id.svg';
+import al from '../../assets/icon/al.svg';
+import co from '../../assets/icon/co.svg';
+import { AxiosError } from 'axios';
+import { AreaType } from '../UI/SelectArea';
+import { ToolType } from '../UI/SelectTools';
+import api from '../../services/api';
+import Skeleton from 'react-loading-skeleton';
+import Button from '../UI/Button';
 
 export interface IProfile {
-  data_nascimento: string
-  usuario: string
-  email: string
-  ativo: boolean
-  nome: string
-  telefone: string
-  colaborador: boolean
-  idealizador: boolean
-  aliado: boolean
-  foto_perfil: string
-  habilidades: ToolType[]
-  areas: AreaType[]
-  id: number
-  data_criacao: string
-  data_atualizacao: string
+  data_nascimento: string;
+  usuario: string;
+  email: string;
+  ativo: boolean;
+  nome: string;
+  telefone: string;
+  colaborador: boolean;
+  idealizador: boolean;
+  aliado: boolean;
+  foto_perfil: string;
+  habilidades: ToolType[];
+  areas: AreaType[];
+  id: number;
+  data_criacao: string;
+  data_atualizacao: string;
 }
 interface IProfileCardProps {
-  profile: IProfile
+  profile: IProfile;
 }
 const ProfileCard: React.FC<IProfileCardProps> = ({ profile }) => {
   return (
@@ -60,6 +60,6 @@ const ProfileCard: React.FC<IProfileCardProps> = ({ profile }) => {
         <Button theme="primary">SEGUIR</Button>
       </aside>
     </BodyCard>
-  )
-}
-export default ProfileCard
+  );
+};
+export default ProfileCard;

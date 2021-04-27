@@ -1,5 +1,5 @@
-import React, { HTMLAttributes } from 'react'
-import { Icon } from './style'
+import React, { HTMLAttributes } from 'react';
+import { Icon } from './style';
 
 export const Trash: React.FC<HTMLAttributes<HTMLSpanElement>> = ({
   ...rest
@@ -56,6 +56,6 @@ export const Trash: React.FC<HTMLAttributes<HTMLSpanElement>> = ({
         />
       </svg>
     </Icon>
-  )
-}
-export default Trash
+  );
+};
+export default Trash;

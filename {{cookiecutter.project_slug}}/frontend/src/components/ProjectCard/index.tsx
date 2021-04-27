@@ -1,36 +1,36 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react'
-import { BodyCard, ProjectInfo, UserInfo } from './styles'
-import { Link } from 'react-router-dom'
-import api from '../../services/api'
-import { AreaType } from '../UI/SelectArea'
-import { ToolType } from '../UI/SelectTools'
+import React, { InputHTMLAttributes, useEffect, useState } from 'react';
+import { BodyCard, ProjectInfo, UserInfo } from './styles';
+import { Link } from 'react-router-dom';
+import api from '../../services/api';
+import { AreaType } from '../UI/SelectArea';
+import { ToolType } from '../UI/SelectTools';
 interface IPessoa {
-  foto_perfil: string
-  usuario: string
-  nome: string
-  id: number
+  foto_perfil: string;
+  usuario: string;
+  nome: string;
+  id: number;
 }
 export interface IProject {
-  nome: string
-  descricao: string
-  visibilidade: true
-  objetivo: string
-  pessoa_id: number
-  id: string
-  areas: AreaType[]
-  habilidades: ToolType[]
+  nome: string;
+  descricao: string;
+  visibilidade: true;
+  objetivo: string;
+  pessoa_id: number;
+  id: string;
+  areas: AreaType[];
+  habilidades: ToolType[];
 }
 interface IProjectCardProps {
-  project: IProject
-  hiddeOwner?: true
+  project: IProject;
+  hiddeOwner?: true;
 }
 const ProjectCard: React.FC<IProjectCardProps> = ({ project, hiddeOwner }) => {
-  const [user, setUser] = useState<IPessoa>()
+  const [user, setUser] = useState<IPessoa>();
   useEffect(() => {
-    api.get(`/api/v1/pessoas/${project.pessoa_id}`).then(response => {
-      setUser(response.data)
-    })
-  }, [project.pessoa_id])
+    api.get(`/api/v1/pessoas/${project.pessoa_id}`).then((response) => {
+      setUser(response.data);
+    });
+  }, [project.pessoa_id]);
   return (
     <BodyCard>
       {!hiddeOwner && (
@@ -61,10 +61,10 @@ const ProjectCard: React.FC<IProjectCardProps> = ({ project, hiddeOwner }) => {
             <section>
               <Link to={`/projeto/${project.id}`}>{project.nome}</Link>
               <ul>
-                {project.habilidades?.map(habilidade => (
+                {project.habilidades?.map((habilidade) => (
                   <li key={habilidade.id}>{habilidade.nome}</li>
                 ))}
-                {project.areas?.map(area => (
+                {project.areas?.map((area) => (
                   <li key={area.id}>{area.descricao}</li>
                 ))}
               </ul>
@@ -79,6 +79,6 @@ const ProjectCard: React.FC<IProjectCardProps> = ({ project, hiddeOwner }) => {
         </aside>
       </div>
     </BodyCard>
-  )
-}
-export default ProjectCard
+  );
+};
+export default ProjectCard;

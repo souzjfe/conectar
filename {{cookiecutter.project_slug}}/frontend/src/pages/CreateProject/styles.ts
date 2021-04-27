@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { BodyVacancy } from '../../components/Vacancy/styles'
-import background from '../../assets/image/background.svg'
+import styled from 'styled-components';
+import { BodyVacancy } from '../../components/Vacancy/styles';
+import background from '../../assets/image/background.svg';
 
 export const BodyCreateProject = styled.div`
   display: flex;
@@ -70,4 +70,4 @@ export const BodyCreateProject = styled.div`
       }
     }
   }
-`
+`;

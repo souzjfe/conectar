@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodyCard = styled.div`
   border-radius: var(--borderRadius);
@@ -39,4 +39,4 @@ export const BodyCard = styled.div`
     }
     font: 700 1.2rem Raleway;
   }
-`
+`;

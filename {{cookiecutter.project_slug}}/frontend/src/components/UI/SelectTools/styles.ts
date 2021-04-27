@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodySelectTool = styled.div`
   margin: 0.3rem 0;
@@ -160,4 +160,4 @@ export const BodySelectTool = styled.div`
     left: 0;
     bottom: 0;
   }
-`
+`;

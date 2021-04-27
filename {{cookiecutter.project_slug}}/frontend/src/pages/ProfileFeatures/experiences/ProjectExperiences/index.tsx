@@ -5,117 +5,117 @@ import React, {
   useEffect,
   OptionHTMLAttributes,
   useRef,
-} from 'react'
-import Input from '../../../../components/UI/Input'
-import Textarea from '../../../../components/UI/Textarea'
-import Select from '../../../../components/UI/Select'
-import ToggleSwitch from '../../../../components/UI/ToggleSwitch'
-import Button from '../../../../components/UI/Button'
-import Modal from '../../../../components/UI/Modal'
-import { BodyExperiences } from '../styles'
+} from 'react';
+import Input from '../../../../components/UI/Input';
+import Textarea from '../../../../components/UI/Textarea';
+import Select from '../../../../components/UI/Select';
+import ToggleSwitch from '../../../../components/UI/ToggleSwitch';
+import Button from '../../../../components/UI/Button';
+import Modal from '../../../../components/UI/Modal';
+import { BodyExperiences } from '../styles';
 import {
   yearOptions,
   monthOptions,
   toMonth,
   finalYearOptions,
-} from '../../../../utils/dates'
-import { AxiosError } from 'axios'
-import api from '../../../../services/api'
-import * as Yup from 'yup'
-import { FormHandles } from '@unform/core'
-import { Form } from '@unform/web'
-import getValidationErrors from '../../../../utils/getValidationErrors'
-import { IconEdit, IconTrash } from '../../../../assets/icon'
-import { OptionTypeBase, Props as SelectProps } from 'react-select'
+} from '../../../../utils/dates';
+import { AxiosError } from 'axios';
+import api from '../../../../services/api';
+import * as Yup from 'yup';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import getValidationErrors from '../../../../utils/getValidationErrors';
+import { IconEdit, IconTrash } from '../../../../assets/icon';
+import { OptionTypeBase, Props as SelectProps } from 'react-select';
 export interface IExperienceProject {
-  id: number
-  nome: string
-  descricao: string
-  data_inicio: string
-  data_fim: string
-  cargo: string
-  situacao: string
+  id: number;
+  nome: string;
+  descricao: string;
+  data_inicio: string;
+  data_fim: string;
+  cargo: string;
+  situacao: string;
 }
 interface ProjectDataType {
-  id?: number
-  nome: string
-  descricao: string
-  currentProject: boolean
-  cargo: string
-  situacao: string
-  initialYear: string
-  initialMonth: string
+  id?: number;
+  nome: string;
+  descricao: string;
+  currentProject: boolean;
+  cargo: string;
+  situacao: string;
+  initialYear: string;
+  initialMonth: string;
   // Supressing "The operand of a 'delete' operator must be optional" warning
-  finalYear?: string
-  finalMonth?: string
+  finalYear?: string;
+  finalMonth?: string;
 }
 const ProjectExperiences: React.FC = () => {
-  const formRef = useRef<FormHandles>(null)
-  const situationRef = useRef<SelectProps>(null)
-  const [showRegister, setShowRegister] = useState<boolean>(false)
+  const formRef = useRef<FormHandles>(null);
+  const situationRef = useRef<SelectProps>(null);
+  const [showRegister, setShowRegister] = useState<boolean>(false);
   const [initialYear, setInitialYear] = useState<number>(
-    new Date().getFullYear() + 1,
-  )
-  const [currentilyProject, setCurrentilyProject] = useState<boolean>(false)
-  const [stored, setStored] = useState<IExperienceProject[]>([])
+    new Date().getFullYear() + 1
+  );
+  const [currentilyProject, setCurrentilyProject] = useState<boolean>(false);
+  const [stored, setStored] = useState<IExperienceProject[]>([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const initialProjectData = {
     id: 0,
     currentProject: false,
-  } as ProjectDataType
+  } as ProjectDataType;
   const [editStored, setEditStored] = useState<ProjectDataType>(
-    initialProjectData,
-  )
-  const [openModal, setOpenModal] = useState<boolean>(false)
+    initialProjectData
+  );
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [experienceExcluded, setExperienceExcluded] = useState({
     id: 0,
     nome: '',
-  })
+  });
   const situacao: OptionHTMLAttributes<HTMLOptionElement>[] = [
     { label: 'Desativado', value: 'Desativado' },
     { label: 'Em andamento', value: 'Em andamento' },
     { label: 'Conluído', value: 'Conluído' },
-  ]
+  ];
   useEffect(() => {
-    console.log(situationRef.current)
-  }, [situationRef])
+    console.log(situationRef.current);
+  }, [situationRef]);
   useEffect(() => {
     api
       .get('/api/v1/experiencias/projeto/me', {
         withCredentials: true,
       })
-      .then(response => {
-        setStored(response.data)
+      .then((response) => {
+        setStored(response.data);
       })
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
-  }, [editStored, showRegister, openModal])
+        return err?.response?.data.detail;
+      });
+  }, [editStored, showRegister, openModal]);
   async function handleDeleteExperience(id: number) {
     if (stored.length === 1) {
-      stored.splice(0, 1)
+      stored.splice(0, 1);
     }
     await api
       .delete(`/api/v1/experiencias/projeto/${id}`, {
         withCredentials: true,
       })
       .then(() => {
-        setShowRegister(false)
-        setOpenModal(false)
-        setEditStored(initialProjectData)
+        setShowRegister(false);
+        setOpenModal(false);
+        setEditStored(initialProjectData);
       })
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
+        return err?.response?.data.detail;
+      });
   }
 
   const handleSubmit = useCallback(
     async (formData: ProjectDataType) => {
-      console.log(formData)
+      console.log(formData);
 
-      formRef.current?.setErrors({})
+      formRef.current?.setErrors({});
       try {
         const schema = Yup.object().shape({
           nome: Yup.string().required('Informe o nome'),
@@ -135,11 +135,11 @@ const ProjectExperiences: React.FC = () => {
           finalMonth: !currentilyProject
             ? Yup.string().required('Mês final é obrigatório')
             : Yup.string(),
-        })
+        });
 
         await schema.validate(formData, {
           abortEarly: false,
-        })
+        });
         // Validation passed
         const {
           currentProject,
@@ -151,13 +151,13 @@ const ProjectExperiences: React.FC = () => {
           finalMonth,
           initialMonth,
           situacao,
-        } = formData
+        } = formData;
         // setting to null because if there a update an experience with an existing data_fim it will not send
-        let data_fim = null
-        const data_inicio = `${initialYear}-${initialMonth}-01`
+        let data_fim = null;
+        const data_inicio = `${initialYear}-${initialMonth}-01`;
 
         if (!currentProject) {
-          data_fim = `${finalYear}-${finalMonth}-01`
+          data_fim = `${finalYear}-${finalMonth}-01`;
         }
 
         const data = {
@@ -167,8 +167,8 @@ const ProjectExperiences: React.FC = () => {
           data_fim,
           cargo,
           situacao,
-        }
-        console.log(data)
+        };
+        console.log(data);
         /**
          * Sends data to backend
          * It's important to notice the withCredentials being true here
@@ -180,39 +180,39 @@ const ProjectExperiences: React.FC = () => {
                 withCredentials: true,
               })
               .then(() => {
-                setShowRegister(false)
-                setEditStored(initialProjectData)
+                setShowRegister(false);
+                setEditStored(initialProjectData);
               })
               .catch((err: AxiosError) => {
                 // Returns error message from backend
-                return err?.response?.data.detail
+                return err?.response?.data.detail;
               })
           : await api
               .post('/api/v1/experiencias/projeto', data, {
                 withCredentials: true,
               })
               .then(() => {
-                setShowRegister(false)
-                setEditStored(initialProjectData)
+                setShowRegister(false);
+                setEditStored(initialProjectData);
               })
               .catch((err: AxiosError) => {
                 // Returns error message from backend
-                return err?.response?.data.detail
-              })
-        console.log(res)
+                return err?.response?.data.detail;
+              });
+        console.log(res);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           // Validation failed
-          const errors = getValidationErrors(error)
+          const errors = getValidationErrors(error);
 
-          formRef.current?.setErrors(errors)
+          formRef.current?.setErrors(errors);
         }
       }
 
       // Do something
     },
-    [currentilyProject, editStored.id, initialProjectData],
-  )
+    [currentilyProject, editStored.id, initialProjectData]
+  );
   function handleEditExperience(experience: IExperienceProject) {
     const {
       id,
@@ -222,9 +222,9 @@ const ProjectExperiences: React.FC = () => {
       data_fim,
       cargo,
       situacao,
-    }: IExperienceProject = experience
+    }: IExperienceProject = experience;
 
-    const [initialYear, initialMonth] = data_inicio.split('-')
+    const [initialYear, initialMonth] = data_inicio.split('-');
 
     const data = {
       id,
@@ -237,9 +237,9 @@ const ProjectExperiences: React.FC = () => {
       currentProject: !data_fim,
       finalYear: data_fim ? data_fim.split('-')[0] : data_fim,
       finalMonth: data_fim ? data_fim.split('-')[1] : data_fim,
-    }
-    setShowRegister(true)
-    setEditStored(data)
+    };
+    setShowRegister(true);
+    setEditStored(data);
   }
   return (
     <BodyExperiences>
@@ -281,8 +281,8 @@ const ProjectExperiences: React.FC = () => {
                 <IconEdit onClick={() => handleEditExperience(experience)} />
                 <IconTrash
                   onClick={() => {
-                    setOpenModal(true)
-                    setExperienceExcluded(experience)
+                    setOpenModal(true);
+                    setExperienceExcluded(experience);
                   }}
                 />
               </section>
@@ -350,7 +350,7 @@ const ProjectExperiences: React.FC = () => {
                   name="initialYear"
                   options={yearOptions}
                   onChange={(option: any) => {
-                    setInitialYear(Number(option.value))
+                    setInitialYear(Number(option.value));
                   }}
                   defaultValue={
                     editStored.id
@@ -436,13 +436,13 @@ const ProjectExperiences: React.FC = () => {
                 theme="secondary"
                 onClick={() => {
                   if (editStored.id) {
-                    setOpenModal(true)
+                    setOpenModal(true);
                     setExperienceExcluded({
                       nome: editStored.nome,
                       id: editStored?.id,
-                    })
+                    });
                   } else {
-                    setShowRegister(false)
+                    setShowRegister(false);
                   }
                 }}
               >
@@ -451,8 +451,8 @@ const ProjectExperiences: React.FC = () => {
               <Button
                 theme="secondary"
                 onClick={() => {
-                  setShowRegister(false)
-                  setEditStored(initialProjectData)
+                  setShowRegister(false);
+                  setEditStored(initialProjectData);
                 }}
               >
                 Cancelar
@@ -462,7 +462,7 @@ const ProjectExperiences: React.FC = () => {
         </Form>
       )}
     </BodyExperiences>
-  )
-}
+  );
+};
 
-export default ProjectExperiences
+export default ProjectExperiences;

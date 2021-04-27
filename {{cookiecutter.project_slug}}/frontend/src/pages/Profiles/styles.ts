@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 export const ButtonList = styled.button<{ borderBottom: boolean }>`
   width: 50%;
   display: flex;
@@ -10,7 +10,7 @@ export const ButtonList = styled.button<{ borderBottom: boolean }>`
   border-left: solid 1px var(--borderDivision);
   background: transparent;
   position: relative;
-  ${props =>
+  ${(props) =>
     props.borderBottom &&
     css`
       :after {
@@ -24,7 +24,7 @@ export const ButtonList = styled.button<{ borderBottom: boolean }>`
         bottom: 0;
       }
     `}
-`
+`;
 export const ProjetosSection = styled.section`
   grid-column: 2;
   width: calc(100% - 2rem);
@@ -37,7 +37,7 @@ export const ProjetosSection = styled.section`
   }
   @media (min-width: 1024px) {
   }
-`
+`;
 export const ExperienciasDiv = styled.div`
   display: flex;
   justify-content: space-between;
@@ -113,7 +113,7 @@ export const ExperienciasDiv = styled.div`
       }
     }
   }
-`
+`;
 export const PerfilMain = styled.main`
   width: 100%;
   display: flex;
@@ -171,7 +171,7 @@ export const PerfilMain = styled.main`
       }
     }
   }
-`
+`;
 export const PerfilDiv = styled.div`
   padding: 0.8rem 0;
   display: flex;
@@ -229,7 +229,7 @@ export const PerfilDiv = styled.div`
       order: 4;
     }
   }
-`
+`;
 export const Page = styled.div`
   width: 100%;
   height: 100%;
@@ -322,4 +322,4 @@ export const Page = styled.div`
       }
     }
   }
-`
+`;

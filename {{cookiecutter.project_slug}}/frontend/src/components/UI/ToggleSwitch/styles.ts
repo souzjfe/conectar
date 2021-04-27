@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodySwitch = styled.div`
   label {
@@ -45,4 +45,4 @@ export const BodySwitch = styled.div`
       display: none;
     }
   }
-`
+`;

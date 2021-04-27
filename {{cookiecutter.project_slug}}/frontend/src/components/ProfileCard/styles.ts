@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { BodyButton } from '../UI/Button/styles'
+import styled from 'styled-components';
+import { BodyButton } from '../UI/Button/styles';
 export const BodyCard = styled.div`
   display: grid;
   width: 22rem;
@@ -63,4 +63,4 @@ export const BodyCard = styled.div`
       }
     }
   }
-`
+`;

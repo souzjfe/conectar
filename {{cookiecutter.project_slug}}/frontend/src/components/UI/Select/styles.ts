@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodySelect = styled.div`
   width: 100%;
@@ -37,4 +37,4 @@ export const BodySelect = styled.div`
       }
     }
   }
-`
+`;

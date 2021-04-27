@@ -1,5 +1,5 @@
-import React, { HTMLAttributes } from 'react'
-import { Icon } from './style'
+import React, { HTMLAttributes } from 'react';
+import { Icon } from './style';
 
 export const User: React.FC<HTMLAttributes<HTMLSpanElement>> = ({
   ...rest
@@ -48,6 +48,6 @@ export const User: React.FC<HTMLAttributes<HTMLSpanElement>> = ({
         />
       </svg>
     </Icon>
-  )
-}
-export default User
+  );
+};
+export default User;

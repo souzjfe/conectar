@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import background from '../../assets/image/background.svg'
+import styled from 'styled-components';
+import background from '../../assets/image/background.svg';
 
 export const BodyProfileFeatures = styled.div`
   display: flex;
@@ -31,4 +31,4 @@ export const BodyProfileFeatures = styled.div`
     justify-content: space-between;
     margin: 1.6rem 0;
   }
-`
+`;

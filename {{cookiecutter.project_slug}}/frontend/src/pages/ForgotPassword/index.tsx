@@ -1,67 +1,67 @@
-import React, { useState, useRef, useCallback } from 'react'
-import { Page } from './styles'
-import Button from '../../components/UI/Button'
-import Input from '../../components/UI/Input'
-import { useHistory } from 'react-router'
-import api from '../../services/api'
-import * as Yup from 'yup'
-import { FormHandles } from '@unform/core'
-import { Form } from '@unform/web'
-import getValidationErrors from '../../utils/getValidationErrors'
-import InputMask from '../../components/UI/InputMask'
-import logo from '../../assets/image/logo_icone.svg'
+import React, { useState, useRef, useCallback } from 'react';
+import { Page } from './styles';
+import Button from '../../components/UI/Button';
+import Input from '../../components/UI/Input';
+import { useHistory } from 'react-router';
+import api from '../../services/api';
+import * as Yup from 'yup';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import getValidationErrors from '../../utils/getValidationErrors';
+import InputMask from '../../components/UI/InputMask';
+import logo from '../../assets/image/logo_icone.svg';
 interface FirstFormData {
-  email: string
+  email: string;
 }
 interface SecondFormData {
-  digito1: number
-  digito2: number
-  digito3: number
-  digito4: number
-  digito5: number
-  digito6: number
+  digito1: number;
+  digito2: number;
+  digito3: number;
+  digito4: number;
+  digito5: number;
+  digito6: number;
 }
 interface ThirdFormData {
-  senha: string
+  senha: string;
 }
 const ForgotPassword: React.FC = () => {
-  const formRef = useRef<FormHandles>(null)
-  const history = useHistory()
-  const [shownStep, setShownStep] = useState<1 | 2 | 3>(1)
-  const [firstData, setfirstData] = useState<FirstFormData>({ email: `` })
+  const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
+  const [shownStep, setShownStep] = useState<1 | 2 | 3>(1);
+  const [firstData, setfirstData] = useState<FirstFormData>({ email: `` });
 
   const handleSubmit = useCallback(async (formData: FirstFormData) => {
-    console.log(formData)
+    console.log(formData);
     try {
       // Remove all previogeus errors
-      formRef.current?.setErrors({})
+      formRef.current?.setErrors({});
       const schema = Yup.object().shape({
         email: Yup.string()
           .email('Não corresponde ao formato exemple@ex.com')
           .required('Email é obrigatório'),
-      })
+      });
       await schema.validate(formData, {
         abortEarly: false,
-      })
+      });
       // Validation passed
 
-      setfirstData(formData)
+      setfirstData(formData);
 
-      setShownStep(2)
+      setShownStep(2);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         // Validation failed
-        const errors = getValidationErrors(err)
-        formRef.current?.setErrors(errors)
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
       }
     }
-  }, [])
+  }, []);
 
   const handleSecondSubmit = useCallback(async (formData: SecondFormData) => {
-    console.log(formData)
+    console.log(formData);
     try {
       // Remove all previogeus errors
-      formRef.current?.setErrors({})
+      formRef.current?.setErrors({});
       const schema = Yup.object().shape({
         digito1: Yup.string().required('Nenhum dígito inserido!'),
         digito2: Yup.string().required('Nenhum dígito inserido!'),
@@ -69,28 +69,28 @@ const ForgotPassword: React.FC = () => {
         digito4: Yup.string().required('Nenhum dígito inserido!'),
         digito5: Yup.string().required('Nenhum dígito inserido!'),
         digito6: Yup.string().required('Nenhum dígito inserido!'),
-      })
+      });
       await schema.validate(formData, {
         abortEarly: false,
-      })
+      });
       // Validation passed
 
-      setShownStep(3)
+      setShownStep(3);
     } catch (err) {
-      console.log(err)
+      console.log(err);
 
       if (err instanceof Yup.ValidationError) {
         // Validation failed
-        const errors = getValidationErrors(err)
-        formRef.current?.setErrors(errors)
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
       }
     }
-  }, [])
+  }, []);
   const handleThirdSubmit = useCallback(async (formData: ThirdFormData) => {
-    console.log(formData)
+    console.log(formData);
     try {
       // Remove all previogeus errors
-      formRef.current?.setErrors({})
+      formRef.current?.setErrors({});
       const schema = Yup.object().shape({
         senha: Yup.string()
           .matches(/(?=.*[!@#$%^&*])/g, 'Deve conter caracteres especiais')
@@ -99,25 +99,25 @@ const ForgotPassword: React.FC = () => {
           .matches(/(?=.*[a-z])/g, 'Deve conter caracteres minúsculas')
           .min(8, 'Deve conter no mínimo 8 caracteres')
           .required('Senha é obritória'),
-      })
+      });
       await schema.validate(formData, {
         abortEarly: false,
-      })
+      });
       // Validation passed
 
       await api.put(`/api/v1/pessoas`, formData, {
         withCredentials: true,
-      })
+      });
     } catch (err) {
-      console.log(err)
+      console.log(err);
 
       if (err instanceof Yup.ValidationError) {
         // Validation failed
-        const errors = getValidationErrors(err)
-        formRef.current?.setErrors(errors)
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
       }
     }
-  }, [])
+  }, []);
   return (
     <Page>
       <main>
@@ -192,6 +192,6 @@ const ForgotPassword: React.FC = () => {
           ))}
       </main>
     </Page>
-  )
-}
-export default ForgotPassword
+  );
+};
+export default ForgotPassword;

@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 interface Props {
-  showSubarea: boolean
+  showSubarea: boolean;
 }
 
 export const BodySelectArea = styled.div<Props>`
@@ -38,7 +38,7 @@ export const BodySelectArea = styled.div<Props>`
         height: 100%;
         overflow-y: auto;
         scroll-snap-type: y proximity;
-        ${props =>
+        ${(props) =>
           props.showSubarea &&
           css`
             display: none;
@@ -61,7 +61,7 @@ export const BodySelectArea = styled.div<Props>`
         }
       }
       > aside {
-        ${props =>
+        ${(props) =>
           !props.showSubarea &&
           css`
             display: none;
@@ -183,4 +183,4 @@ export const BodySelectArea = styled.div<Props>`
     left: 0;
     bottom: 0;
   }
-`
+`;

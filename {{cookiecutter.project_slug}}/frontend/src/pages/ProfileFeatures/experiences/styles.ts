@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodyExperiences = styled.section`
   .form--experiencia {
@@ -130,4 +130,4 @@ export const BodyExperiences = styled.section`
       height: 100%;
     }
   }
-`
+`;

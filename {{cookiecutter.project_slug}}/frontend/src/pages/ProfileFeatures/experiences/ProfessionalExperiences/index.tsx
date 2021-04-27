@@ -5,48 +5,48 @@ import React, {
   useCallback,
   OptionHTMLAttributes,
   ChangeEvent,
-} from 'react'
-import Input from '../../../../components/UI/Input'
-import Textarea from '../../../../components/UI/Textarea'
-import Select from '../../../../components/UI/Select'
-import ToggleSwitch from '../../../../components/UI/ToggleSwitch'
-import Button from '../../../../components/UI/Button'
-import Modal from '../../../../components/UI/Modal'
-import { BodyExperiences } from '../styles'
+} from 'react';
+import Input from '../../../../components/UI/Input';
+import Textarea from '../../../../components/UI/Textarea';
+import Select from '../../../../components/UI/Select';
+import ToggleSwitch from '../../../../components/UI/ToggleSwitch';
+import Button from '../../../../components/UI/Button';
+import Modal from '../../../../components/UI/Modal';
+import { BodyExperiences } from '../styles';
 import {
   yearOptions,
   monthOptions,
   toMonth,
   finalYearOptions,
-} from '../../../../utils/dates'
-import { AxiosError } from 'axios'
-import api from '../../../../services/api'
-import * as Yup from 'yup'
-import { FormHandles } from '@unform/core'
-import { Form } from '@unform/web'
-import getValidationErrors from '../../../../utils/getValidationErrors'
-import { IconEdit, IconTrash } from '../../../../assets/icon'
+} from '../../../../utils/dates';
+import { AxiosError } from 'axios';
+import api from '../../../../services/api';
+import * as Yup from 'yup';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import getValidationErrors from '../../../../utils/getValidationErrors';
+import { IconEdit, IconTrash } from '../../../../assets/icon';
 export interface ProfessionalType {
-  id: number
-  organizacao: string
-  descricao: string
-  data_inicio: string
-  data_fim: string
-  cargo: string
-  vinculo: string
+  id: number;
+  organizacao: string;
+  descricao: string;
+  data_inicio: string;
+  data_fim: string;
+  cargo: string;
+  vinculo: string;
 }
 interface ProfessionalDataType {
-  id?: number
-  vinculo: string
-  currentWorking: boolean
-  cargo: string
-  organizacao: string
-  descricao: string
-  initialYear: string
-  initialMonth: string
+  id?: number;
+  vinculo: string;
+  currentWorking: boolean;
+  cargo: string;
+  organizacao: string;
+  descricao: string;
+  initialYear: string;
+  initialMonth: string;
   // Supressing "The operand of a 'delete' operator must be optional" warning
-  finalYear: any
-  finalMonth: any
+  finalYear: any;
+  finalMonth: any;
 }
 const ProfessionalExperiences: React.FC = () => {
   // Global
@@ -61,63 +61,63 @@ const ProfessionalExperiences: React.FC = () => {
     { label: 'Autônomo', value: 'Autônomo' },
     { label: 'Meio Período', value: 'Meio Período' },
     { label: 'Tempo Integral', value: 'Tempo Integral' },
-  ]
-  const [showRegister, setShowRegister] = useState<boolean>(false)
-  const [openModal, setOpenModal] = useState<boolean>(false)
-  const formRef = useRef<FormHandles>(null)
-  const [stored, setStored] = useState<ProfessionalType[]>([])
+  ];
+  const [showRegister, setShowRegister] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const formRef = useRef<FormHandles>(null);
+  const [stored, setStored] = useState<ProfessionalType[]>([]);
   const [initialYear, setInitialYear] = useState<number>(
-    new Date().getFullYear() + 1,
-  )
-  const [currentilyWork, setCurrentilyWork] = useState<boolean>(false)
+    new Date().getFullYear() + 1
+  );
+  const [currentilyWork, setCurrentilyWork] = useState<boolean>(false);
   const initialProfessionalData = {
     id: 0,
     currentWorking: false,
-  } as ProfessionalDataType
+  } as ProfessionalDataType;
   const [editStored, setEditStored] = useState<ProfessionalDataType>(
-    initialProfessionalData,
-  )
+    initialProfessionalData
+  );
   const [experienceExcluded, setExperienceExcluded] = useState({
     id: 0,
     nome: '',
-  })
+  });
   useEffect(() => {
     api
       .get('/api/v1/experiencias/profissional/me', {
         withCredentials: true,
       })
-      .then(response => {
-        setStored(response.data)
+      .then((response) => {
+        setStored(response.data);
       })
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
-  }, [showRegister, editStored, openModal])
+        return err?.response?.data.detail;
+      });
+  }, [showRegister, editStored, openModal]);
   async function handleDeleteExperience(id: number) {
     if (stored.length === 1) {
-      stored.splice(0, 1)
+      stored.splice(0, 1);
     }
     await api
       .delete(`/api/v1/experiencias/profissional/${id}`, {
         withCredentials: true,
       })
       .then(() => {
-        setShowRegister(false)
-        setOpenModal(false)
-        setEditStored(initialProfessionalData)
+        setShowRegister(false);
+        setOpenModal(false);
+        setEditStored(initialProfessionalData);
       })
       .catch((err: AxiosError) => {
         // Returns error message from backend
-        return err?.response?.data.detail
-      })
+        return err?.response?.data.detail;
+      });
   }
 
   const handleSubmit = useCallback(
     async (formData: ProfessionalDataType) => {
-      console.log(formData)
+      console.log(formData);
 
-      formRef.current?.setErrors({})
+      formRef.current?.setErrors({});
       try {
         const validations = {
           vinculo: Yup.string().required('Informe o vínculo'),
@@ -137,13 +137,13 @@ const ProfessionalExperiences: React.FC = () => {
           finalMonth: !currentilyWork
             ? Yup.string().required('Mês final é obrigatório')
             : Yup.string(),
-        }
+        };
 
-        const schema = Yup.object().shape(validations)
+        const schema = Yup.object().shape(validations);
 
         await schema.validate(formData, {
           abortEarly: false,
-        })
+        });
         // Validation passed
         const {
           vinculo,
@@ -155,13 +155,13 @@ const ProfessionalExperiences: React.FC = () => {
           initialYear,
           initialMonth,
           finalMonth,
-        }: ProfessionalDataType = formData
+        }: ProfessionalDataType = formData;
         // setting to null because if there a update an experience with an existing data_fim it will not send
-        let data_fim = null
-        const data_inicio = `${initialYear}-${initialMonth}-01`
+        let data_fim = null;
+        const data_inicio = `${initialYear}-${initialMonth}-01`;
 
         if (!currentWorking) {
-          data_fim = `${finalYear}-${finalMonth}-01`
+          data_fim = `${finalYear}-${finalMonth}-01`;
         }
 
         const data = {
@@ -171,7 +171,7 @@ const ProfessionalExperiences: React.FC = () => {
           data_fim,
           cargo,
           vinculo,
-        }
+        };
 
         /**
          * Sends data to backend
@@ -184,39 +184,39 @@ const ProfessionalExperiences: React.FC = () => {
               withCredentials: true,
             })
             .then(() => {
-              setShowRegister(false)
-              setEditStored(initialProfessionalData)
+              setShowRegister(false);
+              setEditStored(initialProfessionalData);
             })
             .catch((err: AxiosError) => {
               // Returns error message from backend
-              return err?.response?.data.detail
-            })
+              return err?.response?.data.detail;
+            });
         else
           await api
             .post('/api/v1/experiencias/profissional', data, {
               withCredentials: true,
             })
             .then(() => {
-              setShowRegister(false)
-              setEditStored(initialProfessionalData)
+              setShowRegister(false);
+              setEditStored(initialProfessionalData);
             })
             .catch((err: AxiosError) => {
               // Returns error message from backend
-              return err?.response?.data.detail
-            })
+              return err?.response?.data.detail;
+            });
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           // Validation failed
-          const errors = getValidationErrors(error)
+          const errors = getValidationErrors(error);
 
-          formRef.current?.setErrors(errors)
+          formRef.current?.setErrors(errors);
         }
       }
 
       // Do something
     },
-    [currentilyWork, editStored.id, initialProfessionalData],
-  )
+    [currentilyWork, editStored.id, initialProfessionalData]
+  );
   // Edit
   function handleEditExperience(experience: ProfessionalType) {
     const {
@@ -227,9 +227,9 @@ const ProfessionalExperiences: React.FC = () => {
       data_fim,
       cargo,
       vinculo,
-    }: ProfessionalType = experience
+    }: ProfessionalType = experience;
 
-    const [initialYear, initialMonth] = data_inicio.split('-')
+    const [initialYear, initialMonth] = data_inicio.split('-');
 
     const data = {
       id,
@@ -242,10 +242,10 @@ const ProfessionalExperiences: React.FC = () => {
       currentWorking: !data_fim,
       finalYear: data_fim ? data_fim.split('-')[0] : data_fim,
       finalMonth: data_fim ? data_fim.split('-')[1] : data_fim,
-    }
+    };
 
-    setShowRegister(true)
-    setEditStored(data)
+    setShowRegister(true);
+    setEditStored(data);
   }
 
   return (
@@ -287,11 +287,11 @@ const ProfessionalExperiences: React.FC = () => {
                 <IconEdit onClick={() => handleEditExperience(experience)} />
                 <IconTrash
                   onClick={() => {
-                    setOpenModal(true)
+                    setOpenModal(true);
                     setExperienceExcluded({
                       ...experience,
                       nome: experience.cargo,
-                    })
+                    });
                   }}
                 />
               </section>
@@ -390,7 +390,7 @@ const ProfessionalExperiences: React.FC = () => {
                   name="initialYear"
                   options={yearOptions}
                   onChange={(option: any) => {
-                    setInitialYear(Number(option.value))
+                    setInitialYear(Number(option.value));
                   }}
                   defaultValue={
                     editStored.id
@@ -449,13 +449,13 @@ const ProfessionalExperiences: React.FC = () => {
                 theme="secondary"
                 onClick={() => {
                   if (editStored.id) {
-                    setOpenModal(true)
+                    setOpenModal(true);
                     setExperienceExcluded({
                       nome: editStored.cargo,
                       id: editStored?.id,
-                    })
+                    });
                   } else {
-                    setShowRegister(false)
+                    setShowRegister(false);
                   }
                 }}
               >
@@ -464,8 +464,8 @@ const ProfessionalExperiences: React.FC = () => {
               <Button
                 theme="secondary"
                 onClick={() => {
-                  setShowRegister(false)
-                  setEditStored(initialProfessionalData)
+                  setShowRegister(false);
+                  setEditStored(initialProfessionalData);
                 }}
               >
                 Cancelar
@@ -475,7 +475,7 @@ const ProfessionalExperiences: React.FC = () => {
         </Form>
       )}
     </BodyExperiences>
-  )
-}
+  );
+};
 
-export default ProfessionalExperiences
+export default ProfessionalExperiences;

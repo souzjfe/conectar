@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components'
-import { TypeStatusVacancy } from '.'
-import Dropdown from '../UI/Dropdown'
-import { BodyButton as DropdownStyle } from '../UI/Dropdown/styles'
+import styled, { css } from 'styled-components';
+import { TypeStatusVacancy } from '.';
+import Dropdown from '../UI/Dropdown';
+import { BodyButton as DropdownStyle } from '../UI/Dropdown/styles';
 interface CardProps {
-  isAvailable: boolean
-  status?: TypeStatusVacancy
+  isAvailable: boolean;
+  status?: TypeStatusVacancy;
 }
 export const DropdownList = styled(Dropdown)`
   position: absolute;
@@ -18,7 +18,7 @@ export const DropdownList = styled(Dropdown)`
       background: var(--borderDivision);
     }
   }
-`
+`;
 export const BodyCard = styled.li<CardProps>`
   width: 168px;
 
@@ -107,4 +107,4 @@ export const BodyCard = styled.li<CardProps>`
     font-size: 0.8rem;
     height: 2rem;
   }
-`
+`;

@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 interface styleProps {
-  asideOpen: boolean
+  asideOpen: boolean;
 }
 export const DropdownContent = styled.div`
   --arrowWidth: 8px;
@@ -46,7 +46,7 @@ export const DropdownContent = styled.div`
     bottom: 100%;
     z-index: 100;
   }
-`
+`;
 export const BodyButton = styled.div<styleProps>`
   border: 0;
   background: transparent;
@@ -60,8 +60,8 @@ export const BodyButton = styled.div<styleProps>`
     cursor: pointer;
   }
 
-  ${props => props.asideOpen && DropdownContent} {
+  ${(props) => props.asideOpen && DropdownContent} {
     opacity: 1;
     visibility: visible;
   }
-`
+`;

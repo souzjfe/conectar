@@ -1,5 +1,5 @@
-import styled, { css, keyframes } from 'styled-components'
-import Tooltip from '../Tooltip'
+import styled, { css, keyframes } from 'styled-components';
+import Tooltip from '../Tooltip';
 
 export const Error = styled(Tooltip)`
   svg {
@@ -14,7 +14,7 @@ export const Error = styled(Tooltip)`
       border-color: var(--red) transparent;
     }
   }
-`
+`;
 const showMessage = keyframes`
   0%,80%{
     opacity: 1;
@@ -25,7 +25,7 @@ const showMessage = keyframes`
     visibility: hidden;
   }
 
-`
+`;
 export const BodyField = styled.label<{ isEmpty: boolean }>`
   --fieldHeight: 2.4rem;
   --marginTop: 1.6rem;
@@ -89,7 +89,7 @@ export const BodyField = styled.label<{ isEmpty: boolean }>`
       }
     }
   }
-  ${props =>
+  ${(props) =>
     !props.isEmpty &&
     css`
       label {
@@ -109,4 +109,4 @@ export const BodyField = styled.label<{ isEmpty: boolean }>`
     right: 1.6rem;
     bottom: 0;
   }
-`
+`;

@@ -4,17 +4,17 @@ import React, {
   useEffect,
   useRef,
   useState,
-} from 'react'
-import { useField } from '@unform/core'
-import { BodyInput } from '../Input/styles'
-import FieldText from '../FieldText'
-import ReactInputMask, { Props } from 'react-input-mask'
+} from 'react';
+import { useField } from '@unform/core';
+import { BodyInput } from '../Input/styles';
+import FieldText from '../FieldText';
+import ReactInputMask, { Props } from 'react-input-mask';
 interface InputProps extends Props {
-  name: string
-  label?: string
-  subLabel?: string
-  pathSubLabel?: string
-  type?: string
+  name: string;
+  label?: string;
+  subLabel?: string;
+  pathSubLabel?: string;
+  type?: string;
 }
 /**
  * This component receives text in your field whit a possibility of masking
@@ -37,29 +37,29 @@ const InputMask: React.FC<InputProps> = ({
   pathSubLabel,
   ...rest
 }) => {
-  const inputRef = useRef(null)
-  const { fieldName, defaultValue, registerField, error } = useField(name)
+  const inputRef = useRef(null);
+  const { fieldName, defaultValue, registerField, error } = useField(name);
   useEffect(() => {
     registerField({
       name: fieldName,
       ref: inputRef.current,
       path: 'value',
       setValue(ref: any, value: string) {
-        ref.setInputValue(value)
+        ref.setInputValue(value);
       },
       clearValue(ref: any) {
-        ref.setInputValue('')
+        ref.setInputValue('');
       },
-    })
-  }, [fieldName, registerField])
+    });
+  }, [fieldName, registerField]);
   const [inputIsEmpty, setInputIsEmpty] = useState(
-    !rest.defaultValue && rest.defaultValue !== '',
-  )
+    !rest.defaultValue && rest.defaultValue !== ''
+  );
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value !== '' || rest.defaultValue !== '') {
-      setInputIsEmpty(false)
-    } else setInputIsEmpty(true)
-  }, [])
+      setInputIsEmpty(false);
+    } else setInputIsEmpty(true);
+  }, []);
   return (
     <BodyInput>
       <FieldText
@@ -81,7 +81,7 @@ const InputMask: React.FC<InputProps> = ({
         />
       </FieldText>
     </BodyInput>
-  )
-}
+  );
+};
 
-export default InputMask
+export default InputMask;

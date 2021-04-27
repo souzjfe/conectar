@@ -1,21 +1,24 @@
-import { BodySelect } from './styles'
-import makeAnimated from 'react-select/animated'
+import { BodySelect } from './styles';
+import makeAnimated from 'react-select/animated';
 import React, {
   useRef,
   useEffect,
   useCallback,
   ChangeEvent,
   useState,
-} from 'react'
-import ReactSelect, { OptionTypeBase, Props as SelectProps } from 'react-select'
-import { useField } from '@unform/core'
-import FieldText from '../FieldText'
+} from 'react';
+import ReactSelect, {
+  OptionTypeBase,
+  Props as SelectProps,
+} from 'react-select';
+import { useField } from '@unform/core';
+import FieldText from '../FieldText';
 
 interface Props extends SelectProps<OptionTypeBase> {
-  name: string
-  label?: string
-  multi?: boolean
-  onChange?(option: any): void
+  name: string;
+  label?: string;
+  multi?: boolean;
+  onChange?(option: any): void;
 }
 /**
  * This component receives text in your field by selection
@@ -30,9 +33,9 @@ interface Props extends SelectProps<OptionTypeBase> {
  * )
  */
 const Select: React.FC<Props> = ({ name, label, multi, onChange, ...rest }) => {
-  const animatedComponents = makeAnimated()
-  const selectRef = useRef<any>(null)
-  const { fieldName, defaultValue, registerField, error } = useField(name)
+  const animatedComponents = makeAnimated();
+  const selectRef = useRef<any>(null);
+  const { fieldName, defaultValue, registerField, error } = useField(name);
   useEffect(() => {
     registerField({
       name: fieldName,
@@ -40,35 +43,35 @@ const Select: React.FC<Props> = ({ name, label, multi, onChange, ...rest }) => {
       getValue: (ref: any) => {
         if (multi) {
           if (!ref.state.value) {
-            return []
+            return [];
           }
-          return ref.state.value.map((option: OptionTypeBase) => option.value)
+          return ref.state.value.map((option: OptionTypeBase) => option.value);
         }
         if (!ref.state.value) {
-          return ''
+          return '';
         }
-        return ref.state.value.value
+        return ref.state.value.value;
       },
-    })
-  }, [fieldName, multi, registerField, rest.isMulti])
-  const [selectIsEmpty, setSelectIsEmpty] = useState(!rest.defaultValue)
+    });
+  }, [fieldName, multi, registerField, rest.isMulti]);
+  const [selectIsEmpty, setSelectIsEmpty] = useState(!rest.defaultValue);
   const handleChange = useCallback(
     (option: any) => {
       if (!multi && onChange) {
-        onChange(option)
-        setSelectIsEmpty(false)
+        onChange(option);
+        setSelectIsEmpty(false);
       } else {
         if (
           multi ? option !== null && option.length !== 0 : option.value !== ''
         ) {
-          setSelectIsEmpty(false)
+          setSelectIsEmpty(false);
         } else {
-          setSelectIsEmpty(true)
+          setSelectIsEmpty(true);
         }
       }
     },
-    [multi, onChange],
-  )
+    [multi, onChange]
+  );
 
   return (
     <BodySelect>
@@ -93,7 +96,7 @@ const Select: React.FC<Props> = ({ name, label, multi, onChange, ...rest }) => {
         />
       </FieldText>
     </BodySelect>
-  )
-}
+  );
+};
 
-export default Select
+export default Select;

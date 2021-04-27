@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodyVacancy = styled.section`
   display: flex;
@@ -91,4 +91,4 @@ export const BodyVacancy = styled.section`
       }
     }
   }
-`
+`;

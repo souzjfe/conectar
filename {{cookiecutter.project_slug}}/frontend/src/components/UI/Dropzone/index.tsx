@@ -4,16 +4,16 @@ import React, {
   useEffect,
   useCallback,
   useState,
-} from 'react'
-import { useDropzone } from 'react-dropzone'
-import { useField } from '@unform/core'
-import { BodyDropzone } from './styles'
+} from 'react';
+import { useDropzone } from 'react-dropzone';
+import { useField } from '@unform/core';
+import { BodyDropzone } from './styles';
 
 interface Props {
-  name: string
+  name: string;
 }
 // eslint-disable-next-line no-undef
-type InputProps = JSX.IntrinsicElements['input'] & Props
+type InputProps = JSX.IntrinsicElements['input'] & Props;
 /**
  * This component receives images with the drop zone functionality
  *
@@ -25,42 +25,42 @@ type InputProps = JSX.IntrinsicElements['input'] & Props
  * )
  */
 const Dropzone: React.FC<InputProps> = ({ name, ...rest }) => {
-  const inputRef = useRef<HTMLInputElement>(null)
-  const { fieldName, registerField, defaultValue, error } = useField(name)
-  const [preview, setPreview] = useState(defaultValue)
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { fieldName, registerField, defaultValue, error } = useField(name);
+  const [preview, setPreview] = useState(defaultValue);
   const handlePreview = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+    const file = e.target.files?.[0];
     if (!file) {
-      setPreview(null)
+      setPreview(null);
     }
-    const previewURL = URL.createObjectURL(file)
-    setPreview(previewURL)
-  }, [])
-  const onDrop = useCallback(acceptedFiles => {
-    const file = acceptedFiles[0]
+    const previewURL = URL.createObjectURL(file);
+    setPreview(previewURL);
+  }, []);
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
 
-    const fileUrl = URL.createObjectURL(file)
-    setPreview(fileUrl)
-  }, [])
+    const fileUrl = URL.createObjectURL(file);
+    setPreview(fileUrl);
+  }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: 'image/*',
     onDrop,
-  })
+  });
   useEffect(() => {
     registerField({
       name: fieldName,
       ref: inputRef.current,
       path: 'files[0]',
       clearValue(ref: HTMLInputElement) {
-        ref.value = ''
-        setPreview(null)
+        ref.value = '';
+        setPreview(null);
       },
       setValue(_: HTMLInputElement, value: string) {
-        setPreview(value)
+        setPreview(value);
       },
-    })
-  }, [fieldName, registerField])
+    });
+  }, [fieldName, registerField]);
 
   return (
     <BodyDropzone className="view-img" {...getRootProps()}>
@@ -91,7 +91,7 @@ const Dropzone: React.FC<InputProps> = ({ name, ...rest }) => {
       </main>
       {error && <span>{error}</span>}
     </BodyDropzone>
-  )
-}
+  );
+};
 
-export default Dropzone
+export default Dropzone;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodyInput = styled.div`
   width: 100%;
@@ -23,4 +23,4 @@ export const BodyInput = styled.div`
   input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
   }
-`
+`;

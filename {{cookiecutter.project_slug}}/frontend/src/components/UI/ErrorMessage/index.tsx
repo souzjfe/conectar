@@ -1,12 +1,12 @@
-import React from 'react'
-import { Message } from './styles'
+import React from 'react';
+import { Message } from './styles';
 
 interface ErrorMessageProps {
-  message: string
+  message: string;
 }
 
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
-  return <Message>{message}</Message>
-}
+  return <Message>{message}</Message>;
+};
 
-export default ErrorMessage
+export default ErrorMessage;

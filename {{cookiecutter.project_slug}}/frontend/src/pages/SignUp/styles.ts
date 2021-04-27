@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import background from '../../assets/image/background.svg'
+import styled from 'styled-components';
+import background from '../../assets/image/background.svg';
 
 export const BodySignUp = styled.div`
   display: flex;
@@ -118,4 +118,4 @@ export const BodySignUp = styled.div`
       }
     }
   }
-`
+`;

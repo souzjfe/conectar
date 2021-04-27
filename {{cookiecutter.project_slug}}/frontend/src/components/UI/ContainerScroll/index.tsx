@@ -1,6 +1,6 @@
-import React from 'react'
-import { DivScroll } from './styles'
-import { Scrollbars } from 'react-custom-scrollbars'
+import React from 'react';
+import { DivScroll } from './styles';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const ContainerScroll: React.FC = ({ children }) => {
   return (
@@ -8,17 +8,17 @@ const ContainerScroll: React.FC = ({ children }) => {
       <Scrollbars
         className="scrollbar"
         autoHide
-        renderThumbHorizontal={props => (
+        renderThumbHorizontal={(props) => (
           <div {...props} className="thumb-horizontal" />
         )}
-        renderThumbVertical={props => (
+        renderThumbVertical={(props) => (
           <div {...props} className="thumb-vertical" />
         )}
       >
         {children}
       </Scrollbars>
     </DivScroll>
-  )
-}
+  );
+};
 
-export default ContainerScroll
+export default ContainerScroll;

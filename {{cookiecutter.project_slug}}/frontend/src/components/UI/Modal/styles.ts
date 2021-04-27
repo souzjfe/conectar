@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 interface styleProps {
-  open: boolean
+  open: boolean;
 }
 
 export const BodyModal = styled.div<styleProps>`
-  ${props =>
+  ${(props) =>
     props.open
       ? css`
           display: flex;
@@ -37,7 +37,7 @@ export const BodyModal = styled.div<styleProps>`
       font-size: 1.2rem;
     }
   }
-`
+`;
 
 export const DivModalWindow = styled.div`
   width: min(1000px, 90vw);
@@ -52,4 +52,4 @@ export const DivModalWindow = styled.div`
   align-items: center;
   position: relative;
   z-index: 2;
-`
+`;

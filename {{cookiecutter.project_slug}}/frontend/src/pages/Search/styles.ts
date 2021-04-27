@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components'
-import { BodyCard as LinksCard } from '../../components/LinksCard/styles'
-import { BodyCard as ProfileCard } from '../../components/ProfileCard/styles'
-import { BodyCard as ProjectCard } from '../../components/ProjectCard/styles'
-import { BodyCard as SuccessfulCreatorsCard } from '../../components/SuccessfulCreatorsCard/styles'
+import styled, { css } from 'styled-components';
+import { BodyCard as LinksCard } from '../../components/LinksCard/styles';
+import { BodyCard as ProfileCard } from '../../components/ProfileCard/styles';
+import { BodyCard as ProjectCard } from '../../components/ProjectCard/styles';
+import { BodyCard as SuccessfulCreatorsCard } from '../../components/SuccessfulCreatorsCard/styles';
 interface ITagProps {
-  isSelected: boolean
+  isSelected: boolean;
 }
 export const Tag = styled.button<ITagProps>`
   background: none;
@@ -16,14 +16,14 @@ export const Tag = styled.button<ITagProps>`
   border: solid 1px var(--textGreen);
   width: fit-content;
   cursor: pointer;
-  ${props =>
+  ${(props) =>
     props.isSelected &&
     css`
       background: var(--textGreen);
       color: white;
       font-weight: 600;
     `}
-`
+`;
 export const Page = styled.div`
   width: var(--container);
   display: flex;
@@ -64,4 +64,4 @@ export const Page = styled.div`
       width: calc(100% / 3 - 0.7rem);
     }
   }
-`
+`;

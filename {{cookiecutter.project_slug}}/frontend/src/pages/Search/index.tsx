@@ -1,88 +1,88 @@
-import React, { useState, useEffect, useContext, Fragment } from 'react'
-import { Page, Tag } from './styles'
+import React, { useState, useEffect, useContext, Fragment } from 'react';
+import { Page, Tag } from './styles';
 
-import { Context } from '../../context/AuthContext'
-import NavBar from '../../components/UI/NavBar'
-import ProjectCard, { IProject } from '../../components/ProjectCard'
-import ProfileCard, { IProfile } from '../../components/ProfileCard'
-import api from '../../services/api'
-import { AxiosError } from 'axios'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import { useHistory, useParams } from 'react-router'
-import SearchInput from '../../components/UI/SearchInput'
-import noProject from '../../assets/image/sem_projetos.svg'
+import { Context } from '../../context/AuthContext';
+import NavBar from '../../components/UI/NavBar';
+import ProjectCard, { IProject } from '../../components/ProjectCard';
+import ProfileCard, { IProfile } from '../../components/ProfileCard';
+import api from '../../services/api';
+import { AxiosError } from 'axios';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { useHistory, useParams } from 'react-router';
+import SearchInput from '../../components/UI/SearchInput';
+import noProject from '../../assets/image/sem_projetos.svg';
 
 interface IParmsProps {
-  for?: 'projeto' | 'pessoa'
-  attribute?: 'area' | 'habilidade' | 'objetivo' | 'nome'
-  key?: string
+  for?: 'projeto' | 'pessoa';
+  attribute?: 'area' | 'habilidade' | 'objetivo' | 'nome';
+  key?: string;
 }
 interface IFilterAreaOrTool {
-  type: 'area' | 'habilidade'
-  attribute: string
+  type: 'area' | 'habilidade';
+  attribute: string;
 }
 const Explorer: React.FC = () => {
-  const parms = useParams<IParmsProps>()
-  const { user } = useContext(Context)
+  const parms = useParams<IParmsProps>();
+  const { user } = useContext(Context);
   const [filtredProjects, setFiltredProjects] = useState<IProject[]>(
-    [] as IProject[],
-  )
-  const [projects, setProjects] = useState<IProject[]>([] as IProject[])
-  const [peoples, setPeoples] = useState<IProfile[]>([] as IProfile[])
-  const [loading, setLoading] = useState(true)
-  const [filterAreaOrTool, setFilterAreaOrTool] = useState<IFilterAreaOrTool>()
+    [] as IProject[]
+  );
+  const [projects, setProjects] = useState<IProject[]>([] as IProject[]);
+  const [peoples, setPeoples] = useState<IProfile[]>([] as IProfile[]);
+  const [loading, setLoading] = useState(true);
+  const [filterAreaOrTool, setFilterAreaOrTool] = useState<IFilterAreaOrTool>();
   useEffect(() => {
-    setProjects([])
-    setPeoples([])
+    setProjects([]);
+    setPeoples([]);
     if (parms.key) {
       api
         .get(`/api/v1/${parms.for}/${parms.attribute}/${parms.key}`)
-        .then(response => {
+        .then((response) => {
           if (parms.for === 'projeto') {
-            setProjects(response.data)
-            setFiltredProjects(response.data)
+            setProjects(response.data);
+            setFiltredProjects(response.data);
           } else if (parms.for === 'pessoa') {
-            setPeoples(response.data)
+            setPeoples(response.data);
           }
         })
         .catch((err: AxiosError) => {
-          return err?.response?.data.detail
+          return err?.response?.data.detail;
         })
-        .finally(() => setLoading(false))
+        .finally(() => setLoading(false));
     } else {
       api
         .get(`/api/v1/${parms.for}s`)
-        .then(response => {
+        .then((response) => {
           if (parms.for === 'projeto') {
-            setFiltredProjects(response.data)
-            setProjects(response.data)
-          } else if (parms.for === 'pessoa') setPeoples(response.data)
+            setFiltredProjects(response.data);
+            setProjects(response.data);
+          } else if (parms.for === 'pessoa') setPeoples(response.data);
         })
         .catch((err: AxiosError) => {
-          return err?.response?.data.detail
+          return err?.response?.data.detail;
         })
-        .finally(() => setLoading(false))
+        .finally(() => setLoading(false));
     }
-  }, [parms, filterAreaOrTool])
+  }, [parms, filterAreaOrTool]);
   useEffect(() => {
     if (filterAreaOrTool) {
       if (parms.for === 'projeto') {
-        setFiltredProjects(projects)
+        setFiltredProjects(projects);
         setFiltredProjects(
-          filtredProjects?.filter(project => {
+          filtredProjects?.filter((project) => {
             return filterAreaOrTool?.type === 'habilidade'
               ? project.habilidades?.some(
-                  tool => tool.nome === filterAreaOrTool.attribute,
+                  (tool) => tool.nome === filterAreaOrTool.attribute
                 )
               : project.areas?.some(
-                  area => area.descricao === filterAreaOrTool.attribute,
-                )
-          }),
-        )
+                  (area) => area.descricao === filterAreaOrTool.attribute
+                );
+          })
+        );
       } else if (parms.for === 'pessoa') {
       }
     }
-  }, [filterAreaOrTool, parms.for])
+  }, [filterAreaOrTool, parms.for]);
   return (
     <Fragment>
       <NavBar />
@@ -92,7 +92,7 @@ const Explorer: React.FC = () => {
           <p>selecione uma para filtrar</p>
         )}
         <section>
-          {user.areas?.map(area => (
+          {user.areas?.map((area) => (
             <Tag
               key={area.id}
               onClick={() =>
@@ -108,7 +108,7 @@ const Explorer: React.FC = () => {
               {area.descricao}
             </Tag>
           ))}
-          {user.habilidades?.map(habilidade => (
+          {user.habilidades?.map((habilidade) => (
             <Tag
               key={habilidade.id}
               onClick={() =>
@@ -134,7 +134,7 @@ const Explorer: React.FC = () => {
             {parms.for === 'projeto' &&
               (filtredProjects.length > 0 ? (
                 <ul>
-                  {filtredProjects.map(project => (
+                  {filtredProjects.map((project) => (
                     <ProjectCard
                       key={project.id}
                       project={project}
@@ -151,7 +151,7 @@ const Explorer: React.FC = () => {
             {parms.for === 'pessoa' &&
               (peoples.length > 0 ? (
                 <ul>
-                  {peoples.map(profile => (
+                  {peoples.map((profile) => (
                     <ProfileCard key={profile.id} profile={profile} />
                   ))}
                 </ul>
@@ -165,6 +165,6 @@ const Explorer: React.FC = () => {
         )}
       </Page>
     </Fragment>
-  )
-}
-export default Explorer
+  );
+};
+export default Explorer;

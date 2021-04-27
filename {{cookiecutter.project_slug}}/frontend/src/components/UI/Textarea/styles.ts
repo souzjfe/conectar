@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const BodyTextarea = styled.div`
   textarea {
@@ -11,4 +11,4 @@ export const BodyTextarea = styled.div`
     outline: 0;
     resize: none;
   }
-`
+`;

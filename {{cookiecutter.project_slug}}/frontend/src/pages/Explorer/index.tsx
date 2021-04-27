@@ -7,32 +7,32 @@ import React, {
   useContext,
   Fragment,
   useCallback,
-} from 'react'
-import { Page } from './styles'
+} from 'react';
+import { Page } from './styles';
 
-import { Context } from '../../context/AuthContext'
-import NavBar from '../../components/UI/NavBar'
-import ProjectCard, { IProject } from '../../components/ProjectCard'
-import ProfileLink from '../../components/ProfileLink'
-import LinksCard from '../../components/LinksCard'
-import SuccessfulCreatorsCard from '../../components/SuccessfulCreatorsCard'
-import api from '../../services/api'
-import { AxiosError } from 'axios'
-import Skeleton from 'react-loading-skeleton'
+import { Context } from '../../context/AuthContext';
+import NavBar from '../../components/UI/NavBar';
+import ProjectCard, { IProject } from '../../components/ProjectCard';
+import ProfileLink from '../../components/ProfileLink';
+import LinksCard from '../../components/LinksCard';
+import SuccessfulCreatorsCard from '../../components/SuccessfulCreatorsCard';
+import api from '../../services/api';
+import { AxiosError } from 'axios';
+import Skeleton from 'react-loading-skeleton';
 
 const Explorer: React.FC = () => {
-  const { loading, isAuthenticated } = useContext(Context)
-  const [projects, setProjects] = useState<IProject[]>([] as IProject[])
+  const { loading, isAuthenticated } = useContext(Context);
+  const [projects, setProjects] = useState<IProject[]>([] as IProject[]);
   useEffect(() => {
     api
       .get(`/api/v1/projetos?visibilidade=true`)
-      .then(response => {
-        setProjects(response.data)
+      .then((response) => {
+        setProjects(response.data);
       })
       .catch((err: AxiosError) => {
-        return err?.response?.data.detail
-      })
-  }, [])
+        return err?.response?.data.detail;
+      });
+  }, []);
   return (
     <Fragment>
       <NavBar />
@@ -41,7 +41,7 @@ const Explorer: React.FC = () => {
 
         <ul>
           {projects.length ? (
-            projects.map(project => (
+            projects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))
           ) : (
@@ -54,6 +54,6 @@ const Explorer: React.FC = () => {
         </section>
       </Page>
     </Fragment>
-  )
-}
-export default Explorer
+  );
+};
+export default Explorer;

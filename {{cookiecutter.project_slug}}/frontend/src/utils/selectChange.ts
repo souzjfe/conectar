@@ -1,9 +1,9 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent } from 'react';
 
 export function selectChange(
   event: ChangeEvent<HTMLSelectElement>,
   setFormData: Function,
-  formData: {},
+  formData: {}
 ) {
   /**
    * Helper function to handle selectChanges when using hooks
@@ -11,6 +11,6 @@ export function selectChange(
    * @param {Function} setFormData
    * @param {Object} formData
    */
-  const { name, value } = event.target
-  setFormData({ ...formData, [name]: value })
+  const { name, value } = event.target;
+  setFormData({ ...formData, [name]: value });
 }

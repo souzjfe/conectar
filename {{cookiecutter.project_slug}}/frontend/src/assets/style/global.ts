@@ -1,5 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components'
-import backgroud from '../image/background.svg'
+import styled, { createGlobalStyle } from 'styled-components';
+import backgroud from '../image/background.svg';
 export const GlobalStyle = createGlobalStyle`
 :root {
     /* font-size: 60%; */
@@ -68,4 +68,4 @@ select,
 textarea {
     outline: none;
 }
-`
+`;

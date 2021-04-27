@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 interface PropsBodyButton {
-  theme?: string
+  theme?: string;
 }
 
 export const BodyButton = styled.button<PropsBodyButton>`
@@ -22,7 +22,7 @@ export const BodyButton = styled.button<PropsBodyButton>`
   > img {
     height: 1rem;
   }
-  ${props =>
+  ${(props) =>
     props.theme === 'yellow' &&
     css`
       background: var(--yellow);
@@ -31,7 +31,7 @@ export const BodyButton = styled.button<PropsBodyButton>`
         background: var(--yellow-dark);
       }
     `}
-  ${props =>
+  ${(props) =>
     props.theme === 'yellowG' &&
     css`
       border: 2px solid var(--yellow);
@@ -41,13 +41,13 @@ export const BodyButton = styled.button<PropsBodyButton>`
         border: 2px solid var(--yellow-dark);
       }
     `}
-  ${props =>
+  ${(props) =>
     props.theme === 'primary' &&
     css`
       background: var(--textGreen);
       color: white;
     `}
-  ${props =>
+  ${(props) =>
     props.theme === 'secondary' &&
     css`
       border: 1px solid var(--textGreen);
@@ -58,4 +58,4 @@ export const BodyButton = styled.button<PropsBodyButton>`
     cursor: no-drop;
     opacity: 0.5;
   }
-`
+`;

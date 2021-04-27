@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { Form } from '@unform/web'
-import background from '../../assets/image/background.svg'
+import styled from 'styled-components';
+import { Form } from '@unform/web';
+import background from '../../assets/image/background.svg';
 
 export const BodyMasteryTools = styled(Form)`
   display: flex;
@@ -29,4 +29,4 @@ export const BodyMasteryTools = styled(Form)`
     justify-content: space-between;
     margin-top: 1rem;
   }
-`
+`;

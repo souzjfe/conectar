@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 export const ProfileLink = styled(Link)`
   cursor: pointer;
   display: flex;
@@ -29,7 +29,7 @@ export const ProfileLink = styled(Link)`
       font-size: 0.8rem;
     }
   }
-`
+`;
 export const BodyCard = styled.div`
   border-radius: var(--borderRadius);
   background: white;
@@ -65,4 +65,4 @@ export const BodyCard = styled.div`
       width: 1.8rem;
     }
   }
-`
+`;

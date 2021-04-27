@@ -1,8 +1,8 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react'
-import { BodyButton, DropdownContent } from './styles'
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { BodyButton, DropdownContent } from './styles';
 
 interface DropdownProps {
-  IconButton: React.ReactNode
+  IconButton: React.ReactNode;
 }
 /**
  *
@@ -16,11 +16,11 @@ interface DropdownProps {
  * )
  */
 const Dropdown: React.FC<DropdownProps> = ({ IconButton, children }) => {
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
   const handleClick = useCallback(() => {
-    setIsOpen(!isOpen)
-  }, [isOpen])
+    setIsOpen(!isOpen);
+  }, [isOpen]);
 
   useEffect(() => {
     document.addEventListener('mousedown', (event: MouseEvent) => {
@@ -29,10 +29,10 @@ const Dropdown: React.FC<DropdownProps> = ({ IconButton, children }) => {
         !dropdownRef.current?.contains(event.target as Node) &&
         isOpen
       ) {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    })
-  }, [isOpen])
+    });
+  }, [isOpen]);
   return (
     <BodyButton ref={dropdownRef} asideOpen={isOpen}>
       <button type="button" onClick={handleClick} id="btn-drop">
@@ -41,7 +41,7 @@ const Dropdown: React.FC<DropdownProps> = ({ IconButton, children }) => {
 
       <DropdownContent>{children}</DropdownContent>
     </BodyButton>
-  )
-}
+  );
+};
 
-export default Dropdown
+export default Dropdown;

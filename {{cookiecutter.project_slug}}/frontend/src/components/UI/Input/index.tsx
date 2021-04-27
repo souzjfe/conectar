@@ -5,18 +5,18 @@ import React, {
   ChangeEvent,
   useCallback,
   useState,
-} from 'react'
-import { useField } from '@unform/core'
-import { BodyInput } from './styles'
-import { Link } from 'react-router-dom'
-import { FiAlertCircle } from 'react-icons/fi'
-import FieldText from '../FieldText'
+} from 'react';
+import { useField } from '@unform/core';
+import { BodyInput } from './styles';
+import { Link } from 'react-router-dom';
+import { FiAlertCircle } from 'react-icons/fi';
+import FieldText from '../FieldText';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string
-  label?: string
-  subLabel?: string
-  pathSubLabel?: string
+  name: string;
+  label?: string;
+  subLabel?: string;
+  pathSubLabel?: string;
 }
 /**
  * This component receives text in your field
@@ -38,33 +38,33 @@ const Input: React.FC<InputProps> = ({
   pathSubLabel,
   ...rest
 }) => {
-  const inputRef = useRef<any>(null)
-  const { fieldName, defaultValue, registerField, error } = useField(name)
+  const inputRef = useRef<any>(null);
+  const { fieldName, defaultValue, registerField, error } = useField(name);
   useEffect(() => {
     registerField({
       name: fieldName,
       ref: inputRef.current,
       path: 'value',
-    })
-  }, [fieldName, registerField])
+    });
+  }, [fieldName, registerField]);
 
   const [inputIsEmpty, setInputIsEmpty] = useState(
-    !!rest.defaultValue && rest.defaultValue !== '',
-  )
+    !!rest.defaultValue && rest.defaultValue !== ''
+  );
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value !== '') {
-      setInputIsEmpty(false)
+      setInputIsEmpty(false);
     } else {
-      setInputIsEmpty(true)
+      setInputIsEmpty(true);
     }
-  }, [])
+  }, []);
   useEffect(() => {
     if (!!rest.defaultValue && rest.defaultValue !== ' ') {
-      setInputIsEmpty(false)
+      setInputIsEmpty(false);
     } else {
-      setInputIsEmpty(true)
+      setInputIsEmpty(true);
     }
-  }, [rest.defaultValue])
+  }, [rest.defaultValue]);
 
   return (
     <BodyInput>
@@ -86,7 +86,7 @@ const Input: React.FC<InputProps> = ({
         />
       </FieldText>
     </BodyInput>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

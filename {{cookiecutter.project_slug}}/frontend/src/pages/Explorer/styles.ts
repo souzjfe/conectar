@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components'
-import { BodyCard as LinksCard } from '../../components/LinksCard/styles'
-import { BodyCard as ProfileCard } from '../../components/ProfileLink/styles'
-import { BodyCard as SuccessfulCreatorsCard } from '../../components/SuccessfulCreatorsCard/styles'
+import styled, { css } from 'styled-components';
+import { BodyCard as LinksCard } from '../../components/LinksCard/styles';
+import { BodyCard as ProfileCard } from '../../components/ProfileLink/styles';
+import { BodyCard as SuccessfulCreatorsCard } from '../../components/SuccessfulCreatorsCard/styles';
 
 export const Page = styled.div`
   width: var(--container);
@@ -46,4 +46,4 @@ export const Page = styled.div`
       padding: 1.2rem;
     }
   }
-`
+`;

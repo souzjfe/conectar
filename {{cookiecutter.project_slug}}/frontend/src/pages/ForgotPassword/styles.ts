@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { BodyVacancy } from '../../components/Vacancy/styles'
-import background from '../../assets/image/background.svg'
-import { BodyField } from '../../components/UI/FieldText/styles'
-import { BodyInput } from '../../components/UI/Input/styles'
+import styled from 'styled-components';
+import { BodyVacancy } from '../../components/Vacancy/styles';
+import background from '../../assets/image/background.svg';
+import { BodyField } from '../../components/UI/FieldText/styles';
+import { BodyInput } from '../../components/UI/Input/styles';
 
 export const Page = styled.div`
   display: flex;
@@ -86,4 +86,4 @@ export const Page = styled.div`
       }
     }
   }
-`
+`;
