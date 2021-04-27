@@ -9,15 +9,7 @@ const Logged = () => {
   }
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: '50%',
-        zIndex: 1,
-        color: 'white',
-      }}
-    >
+    <div>
       <div style={{ position: 'relative' }}>
         logado: {String(isAuthenticated)}
       </div>
